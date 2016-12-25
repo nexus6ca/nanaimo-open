@@ -1,0 +1,20 @@
+.header {
+    background-image: url('../images/Black-and-White-Chess-Games-l.jpg');
+    color: white;
+    text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+    height: 85px;
+}
+
+.logo {
+    float: left;
+    border: solid 1px;
+}
+
+.header_text {
+    text-align: center;
+    vertical-align: middle ;
+}
+
+.main {
+    background-color: grey;
+}
