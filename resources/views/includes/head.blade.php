@@ -14,5 +14,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/tinymce.js') }}"></script>
-
+<script type="text/javascript" src="{{ URL::asset('/js/main.js') }}"></script>
 <link rel="stylesheet" href="css/blueimp-gallery.min.css">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Pages;
+use App\Page;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 
 
-class PagesController extends Controller
+class PageController extends Controller
 {
     // This controller will allow for the creation of specific pages.
 
@@ -20,7 +20,15 @@ class PagesController extends Controller
      */
     public function add()
     {
-        // Take the form input and generate a blog in the database.
+        try {
+            if(!(Auth::user()->isAdmin)) {
+                throw new Exception('Not Authorized');
+            }
+        } catch (Exception $e) {
+
+            return view('/errors/error')->with('page', 'Add Page')->with('messages', $messages[] = $e->getMessage());
+        }
+        // Take the form input and generate a page in the database.
         return view('/backend/pages/add');
     }
 
@@ -32,7 +40,11 @@ class PagesController extends Controller
      */
     public function edit($id) {
         try {
-            $page = Pages::find($id);
+            if(!(Auth::user()->isAdmin)) {
+                throw new Exception('Not Authorized');
+            }
+
+            $page = Page::find($id);
         } catch (Exception $e) {
             $messages[] = $e->getMessage();
             return view('/errors/error')->with('page', 'Editing Page')->with('messages', $messages);
@@ -49,7 +61,11 @@ class PagesController extends Controller
     public function delete($id)
     {
         try {
-            $page = Pages::find($id);
+            if(!(Auth::user()->isAdmin)) {
+                throw new Exception('Not Authorized');
+            }
+
+            $page = Page::find($id);
             $page->delete();
         } catch (Exception $e) {
             $messages[] = $e->getMessage();
@@ -66,7 +82,11 @@ class PagesController extends Controller
     public function browse()
     {
         try {
-            $pages = Pages::all();
+            if(!(Auth::user()->isAdmin)) {
+                throw new Exception('Not Authorized');
+            }
+
+            $pages = Page::all();
             $result = array();
 
             foreach ($pages as $page) {
@@ -100,6 +120,10 @@ class PagesController extends Controller
     public function save($id = null)
     {
         try {
+            if(!(Auth::user()->isAdmin)) {
+                throw new Exception('Not Authorized');
+            }
+
             $formData = Input::all();
 
             $validator = Validator::make(
@@ -118,10 +142,10 @@ class PagesController extends Controller
             }
 
             if ($id == null) {
-                $page = new Pages();
+                $page = new Page();
                 $page->poster = 1;//Auth::id();
             } else {
-                $page = Pages::find($id);
+                $page = Page::find($id);
                 $page->edit_by = 1;//Auth::id();
             }
 

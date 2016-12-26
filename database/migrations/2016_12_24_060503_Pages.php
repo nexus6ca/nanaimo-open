@@ -33,7 +33,7 @@ class Pages extends Migration
      */
     public function down()
     {
-        // Drop the Database
+        // Drop the Table
         Schema::drop('pages');
     }
 }

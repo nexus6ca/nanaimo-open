@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'address1', 'address2', 'city', 'prov', 'postal',
     ];
 
     /**
@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function tournament() {
+        return $this->hasMany('App\Tournament', 'tournament_user')->withPivot('byes')->withPivot('paid');
+    }
 }

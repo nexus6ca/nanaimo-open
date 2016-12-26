@@ -1,1 +1,1 @@
-<div id="copyright text-right">© Copyright 2017 Jason Williamson</div>
+<div style="border-top: solid; margin-top: 10px;" id="copyright text-right">© Copyright 2017 Jason Williamson</div>

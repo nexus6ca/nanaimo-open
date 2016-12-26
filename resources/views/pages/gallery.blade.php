@@ -35,15 +35,5 @@
             blueimp.Gallery(links, options);
         };
     </script>
-
-{{--    <script>
-        blueimp.Gallery(
-                document.getElementById('links').getElementsByTagName('a'),
-                {
-                    container: '#blueimp-gallery-carousel',
-                    carousel: true
-                }
-        );
-    </script>--}}
 @stop
 
