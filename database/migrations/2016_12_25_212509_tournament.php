@@ -16,12 +16,13 @@ class Tournament extends Migration
         // Create tournament table
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('start_date')->nullable(false);
-            $table->date('end_date')->nullable(false);
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->date('early_reg_end')->nullable();
             $table->boolean('completed')->default(false);
-            $table->int('page_id')->unsigned()->length(10);
-            $table->foreign('page_id')->references('id')->on('page')->onDelete('cascade');
+            $table->longText('details');
+            $table->timestamps();
         });
     }
 

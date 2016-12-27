@@ -7,13 +7,16 @@
 <div class="container">
 
     <header class="row">
+        <?php
+        if(!isset($active)) {
+            $active = '/';
+        };
+        ?>
         @include('includes.header')
     </header>
 
     <div id="main" class="row">
-
         @yield('content')
-
     </div>
 
     <footer class="row">

@@ -1,4 +1,16 @@
 @extends('layouts.default')
 @section('content')
-    Content not created yet.
+    <div class="container">
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-12 col-md-offset-0">
+                <div class="panel panel-default">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                        Content not created yet.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop

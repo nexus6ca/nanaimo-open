@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\Tournament;
+use App\SitePage;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -15,7 +17,7 @@ class FrontendController extends Controller
     public function home()
     {
         try {
-            $home = Page::where('title', '=', 'home')->first();
+            $site = SitePage::find(1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
@@ -25,8 +27,9 @@ class FrontendController extends Controller
             }
         }
 
-        if(!empty($home)) {
-            return view('/')->with('tournament', $home)->with('active', 'home');
+        if(!empty($site->home)) {
+            $home = Page::find($site->home);
+            return view('/pages/home')->with('home', $home)->with('active', 'home');
         } else {
             return view('/pages/default')->with('active', 'home');
         }
@@ -38,7 +41,7 @@ class FrontendController extends Controller
     public function next_tournament()
     {
         try {
-            $next_tournament = Page::where('title', '=', 'next_tournament')->first();
+            $site = SitePage::find(1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
@@ -48,10 +51,12 @@ class FrontendController extends Controller
             }
         }
 
-        if(!empty($next_tournament)) {
-            return view('/pages/tournament')->with('tournament', $next_tournament)->with('active', 'next');
+        if(!empty($site->next_tournament)) {
+            $tournament = Tournament::find($site->next_tournament);
+
+            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'tournament');
         } else {
-            return view('/pages/default')->with('active', 'next');
+            return view('/pages/default')->with('active', 'home');
         }
     }
 
@@ -65,7 +70,7 @@ class FrontendController extends Controller
 
             foreach ($errors->all() as $message) {
                 $messages[] = $message;
-                return view('/errors/error')->with('page', 'Galler Page')->with('messages', $messages);
+                return view('/errors/error')->with('page', 'Gallery Page')->with('messages', $messages);
             }
         }
 
@@ -74,7 +79,7 @@ class FrontendController extends Controller
 
     public function previous_tournament() {
         try {
-            $previous_tournament = Page::where('title', '=', 'previous_tournament')->first();
+            $site = SitePage::find(1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
@@ -83,10 +88,11 @@ class FrontendController extends Controller
                 return view('/errors/error')->with('page', 'Previous Tournament Page')->with('messages', $messages);
             }
         }
-        if(!empty($previous_tournament)) {
-            return view('/pages/tournament')->with('tournament', $previous_tournament)->with('active', 'previous');
+        if(!empty($site->previous_tournament)) {
+            $tournament = Tournament::find($site->previous_tournament);
+            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'tournament');
         } else {
-            return view('/pages/default')->with('active', 'previous');
+            return view('/pages/default')->with('active', 'home');
         }
     }
 

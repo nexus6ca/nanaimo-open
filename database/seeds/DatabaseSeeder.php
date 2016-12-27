@@ -22,5 +22,13 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('secret'),
             'isAdmin'   => true,
         ]);
+
+        DB::table('page_categories')->insert([
+            'category'   => 'page'
+        ]);
+
+        DB::table('page_categories')->insert([
+            'category'   => 'tournament'
+        ]);
     }
 }

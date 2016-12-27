@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Page;
 use App\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 
@@ -24,12 +26,12 @@ class PageController extends Controller
             if(!(Auth::user()->isAdmin)) {
                 throw new Exception('Not Authorized');
             }
+            $categories = DB::table('page_categories')->get();
         } catch (Exception $e) {
-
             return view('/errors/error')->with('page', 'Add Page')->with('messages', $messages[] = $e->getMessage());
         }
         // Take the form input and generate a page in the database.
-        return view('/backend/pages/add');
+        return view('/backend/pages/add')->with('categories', $categories);
     }
 
     /**
@@ -43,13 +45,13 @@ class PageController extends Controller
             if(!(Auth::user()->isAdmin)) {
                 throw new Exception('Not Authorized');
             }
-
+            $categories = DB::table('page_categories')->get();
             $page = Page::find($id);
         } catch (Exception $e) {
             $messages[] = $e->getMessage();
             return view('/errors/error')->with('page', 'Editing Page')->with('messages', $messages);
         }
-        return view('/backend/pages/edit')->with('page', $page);
+        return view('/backend/pages/edit')->with('page', $page)->with('categories', $categories);;
     }
 
     /**
@@ -87,25 +89,13 @@ class PageController extends Controller
             }
 
             $pages = Page::all();
-            $result = array();
-
-            foreach ($pages as $page) {
-                $result[] = array(
-                    'id' => $page->id,
-                    'title' => $page->title,
-                    'poster' => $page->poster,
-                    'author' => User::find($page->poster)->name,
-                    'edited_by' => ($page->updated_at != $page->created_at) ? User::find($page->edit_by)->name : "",
-                    'last_update' => ($page->updated_at != $page->created_at ? $page->updated_at : $page->created_at)
-                );
-            }
 
         } catch (Exception $e) {
             $messages[] = $e->getMessage();
-            return View::make('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
         }
 
-        return view('/backend/pages/browse')->with('result', $result);
+        return view('/backend/pages/browse')->with('result', $pages);
     }
 
     /**
@@ -128,13 +118,15 @@ class PageController extends Controller
 
             $validator = Validator::make(
                 array(
-                    'title' => $formData['title'],
-                    'entry' => $formData['entry'],
+                    'title'     => $formData['title'],
+                    'entry'     => $formData['entry'],
+                    'category'  => $formData['category']
                 ),
                 array(
-                    'title' => 'min:2|:required',
-                    'entry' => 'string|min:2|required',
-                )
+                    'title'     => 'min:2|:required',
+                    'entry'     => 'string|min:2|required',
+                    'category'  => 'string|required'
+                 )
             );
             // Check to see if the validator passes
             if (!$validator->passes()) {
@@ -143,14 +135,15 @@ class PageController extends Controller
 
             if ($id == null) {
                 $page = new Page();
-                $page->poster = 1;//Auth::id();
+                $page->poster = Auth::id();
             } else {
                 $page = Page::find($id);
-                $page->edit_by = 1;//Auth::id();
+                $page->edit_by = Auth::id();
             }
 
             $page->title = $formData['title'];
             $page->entry = $formData['entry'];
+            $page->category = $formData['category'];
 
             $page->save();
 

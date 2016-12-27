@@ -16,14 +16,16 @@
 }
 
 body {
-    background-color: lightskyblue !important;
+    background-color: #337ab7 !important;
 }
 
 #main {
     background-color: slategray;
     min-height: 400px;
-    margin-left: auto;
-    margin-right: auto;
     border: solid black 1px;
+}
+
+.panel{
+    margin: 5px !important;
 }
 

@@ -18,6 +18,7 @@ class Pages extends Migration
             $table->increments('id');
             $table->string('title', 50)->unique();
             $table->longText('entry');
+            $table->string('category');
             $table->integer('poster')->unsigned()->length(10);
             $table->foreign('poster')->references('id')->on('users')->onDelete('cascade');
             $table->integer('edit_by')->unsigned()->length(10)->nullable();
