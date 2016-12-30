@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\Tournament;
 use App\SitePage;
+use App\User;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -21,13 +24,10 @@ class FrontendController extends Controller
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
-            foreach ($errors->all() as $message) {
-                $messages[] = $message;
-                return view('/errors/error')->with('page', 'Saving Page')->with('messages', $messages);
-            }
+            return view('/errors/error')->with('page', 'Saving Page')->with('messages', $errors);
         }
 
-        if(!empty($site->home)) {
+        if (!empty($site->home)) {
             $home = Page::find($site->home);
             return view('/pages/home')->with('home', $home)->with('active', 'home');
         } else {
@@ -44,23 +44,20 @@ class FrontendController extends Controller
             $site = SitePage::find(1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
-
-            foreach ($errors->all() as $message) {
-                $messages[] = $message;
-                return view('/errors/error')->with('page', 'Next Tournament Page')->with('messages', $messages);
-            }
+            return view('/errors/error')->with('page', 'Next Tournament Page')->with('messages', $errors);
         }
 
-        if(!empty($site->next_tournament)) {
+        if (!empty($site->next_tournament)) {
             $tournament = Tournament::find($site->next_tournament);
 
-            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'tournament');
+            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'next_tournament');
         } else {
             return view('/pages/default')->with('active', 'home');
         }
     }
 
-    public function gallery() {
+    public function gallery()
+    {
         try {
             $files = scandir('images/gallery');
             unset($files[0]);
@@ -68,32 +65,56 @@ class FrontendController extends Controller
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
-            foreach ($errors->all() as $message) {
-                $messages[] = $message;
-                return view('/errors/error')->with('page', 'Gallery Page')->with('messages', $messages);
-            }
+            return view('/errors/error')->with('page', 'Gallery Page')->with('messages', $errors);
         }
 
         return view('/pages/gallery')->with('files', $files)->with('active', 'gallery');
     }
 
-    public function previous_tournament() {
+    public function previous_tournament()
+    {
         try {
             $site = SitePage::find(1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
-            foreach ($errors->all() as $message) {
-                $messages[] = $message;
-                return view('/errors/error')->with('page', 'Previous Tournament Page')->with('messages', $messages);
-            }
+            return view('/errors/error')->with('page', 'Previous Tournament Page')->with('messages', $errors);
         }
-        if(!empty($site->previous_tournament)) {
+        if (!empty($site->previous_tournament)) {
             $tournament = Tournament::find($site->previous_tournament);
-            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'tournament');
+            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'previous_tournament');
         } else {
             return view('/pages/default')->with('active', 'home');
         }
+    }
+
+    public function registered($tournament_id)
+    {
+        try {
+            $tournament = Tournament::find($tournament_id);
+            // Pivot finds the player (which is really a user)
+            $players_pivot = $tournament->users()->get();
+
+            $players = array();
+            $registered = 'false';
+            foreach ($players_pivot as $pivot) {
+                var_dump($registered);
+                if ($pivot->id == Auth::id()) {
+                    echo "I am groot";
+                    $registered = 'true';
+                }
+                $player['player'] = User::find($pivot->id);
+                $player['byes'] = $pivot->byes;
+                $player['paid'] = $pivot->paid;
+                $players[] = $player;
+            }
+
+        } catch (Exception $e) {
+            $errors = $e->getMessage();
+
+            return view('/errors/error')->with('page', 'Tournament Registration Page')->with('messages', $errors);
+        }
+        return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);
     }
 
 }

@@ -29,3 +29,7 @@ body {
     margin: 5px !important;
 }
 
+.registered {
+    background-color: grey;
+    color: white;
+}

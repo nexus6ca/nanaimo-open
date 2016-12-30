@@ -19,7 +19,10 @@ class DatabaseSeeder extends Seeder
             'city'          => 'Nanaimo',
             'prov'          => 'BC',
             'postal'        => 'V9T 5A9',
-            'password'  => bcrypt('secret'),
+            'cfc_number'    => 106287,
+            'cfc_expiry_date'    => date("Y-m-d H:i:s"),
+            'rating'            => 2029,
+            'password'  => bcrypt('lotr1924'),
             'isAdmin'   => true,
         ]);
 

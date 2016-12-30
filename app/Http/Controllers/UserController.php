@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use App\User;
 use Exception;
@@ -33,14 +34,13 @@ class UserController extends Controller
             $users = User::all();
 
         }catch(Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Add Tournament Page')->with('messages', $messages);
+            $errors = $e->getMessage();
+            return view('/errors/error')->with('page', 'Add Tournament Page')->with('messages', $errors);
         }
         return view('/backend/users/browse')->with('users', $users);
     }
 
     public function save($id) {
-        try {
             try {
                 $data = Input::all();
                 $validator = Validator::make(
@@ -52,6 +52,8 @@ class UserController extends Controller
                         'city'          => $data['city'],
                         'prov'          => $data['prov'],
                         'postal'        => $data['postal'],
+                        'cfc_number'    => $data['cfc_number'],
+                        'rating'        => $data['rating']
                     ),
                     array(
                         'name'          => 'required|max:255',
@@ -61,6 +63,8 @@ class UserController extends Controller
                         'city'          => 'required|max:255',
                         'prov'          => 'required|max:3',
                         'postal'        => 'required|max:7',
+                        'cfc_number'    => 'integer',
+                        'rating'        => 'integer'
                     )
                 );
                 // Check to see if the validator passes
@@ -78,22 +82,21 @@ class UserController extends Controller
                 $user->city = $data['city'];
                 $user->prov = $data['prov'];
                 $user->postal = $data['postal'];
-                if(Auth::user()->isAdmin) { $user->isAdmin = $data['isAdmin']; }
+                $user->cfc_number = $data['cfc_number'];
+                $user->rating = $data['rating'];
+                if(Auth::user()->isAdmin) {
+                    $user->isAdmin = $data['isAdmin'];
+                    $user->cfc_expiry_date = $data['cfc_expiry_date'];
+                }
                 $user->save();
 
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
-                foreach ($errors as $message) {
-                    $messages[] = $message;
-                }
-                return view('/errors/error')->with('page', 'Saving Page')->with('messages', $messages);
+
+                return view('/errors/error')->with('page', 'Saving User')->with('messages', $errors);
             }
 
-            return back();
-        }catch(Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Add Tournament Page')->with('messages', $messages);
-        }
+            return Redirect::intended('/');
     }
 
     public function delete($id)

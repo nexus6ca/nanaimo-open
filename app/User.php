@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address1', 'address2', 'city', 'prov', 'postal',
+        'name', 'email', 'password', 'address1', 'address2', 'city', 'prov', 'postal', 'cfc_number', 'rating', 'cfc_expiry_date'
     ];
 
     /**
@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function tournament() {
-        return $this->hasMany('App\Tournament', 'tournament_user')->withPivot('byes')->withPivot('paid');
+    public function tournaments() {
+        return $this->belongsToMany('App\Tournament')->withPivot('byes')->withPivot('paid')->withTimestamps();
     }
 }

@@ -9,6 +9,8 @@ use Exception;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -32,8 +34,7 @@ class TournamentController extends Controller
 
 
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Add Tournament Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Add Tournament Page')->with('messages', $e->getMessage());
         }
         // Take the form input and generate a blog in the database.
         return view('/backend/tournament/add');
@@ -47,8 +48,7 @@ class TournamentController extends Controller
             }
             $tournament = Tournament::find($id);
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Editing Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Editing Page')->with('messages', $e->getMessage());
         }
         return view('/backend/tournament/edit')->with('tournament', $tournament);
     }
@@ -103,10 +103,7 @@ class TournamentController extends Controller
 
         } catch (Exception $e) {
             $errors[] = $e->getMessage();
-            foreach ($errors as $message) {
-                $messages[] = $message;
-            }
-            return view('/errors/error')->with('page', 'Saving Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Saving Page')->with('messages', $e->getMessage());
         }
 
         return redirect('/backend/tournament/browse');
@@ -122,8 +119,7 @@ class TournamentController extends Controller
             $tournaments = Tournament::all();
 
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return View::make('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
+            return View::make('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
         }
 
         return view('/backend/tournament/browse')->with('tournaments', $tournaments);
@@ -140,26 +136,57 @@ class TournamentController extends Controller
             $tournament->delete();
 
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
         }
 
         return redirect('/backend/tournament/browse');
     }
 
-    public function register($user_id, $tournament_id)
+    public function register($tournament_id)
     {
-        /*        // From a button on front end view, does not need to be admin
-                $tournament = Tournament::find($tournament_id);
-                $tournament->user()->attach($user_i);
 
-                $*/
+        try {
+            $tournament = Tournament::find($tournament_id);
+            $player = Auth::user();
+            // If the player is already registered we don't want to register again.
+            if (!(DB::table('tournament_user')->where('user_id', $player->id)->where('tournament_id', $tournament_id)->exists())) {
+                $player->tournaments()->attach($tournament->id, ['byes' => (isset($formData['byes']) ? implode(",", $formData['byes']) : "null"), 'paid' => false]);
+            } else {
+                throw new Exception('Already registered.');
+            }
 
+        } catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
+        }
+        return redirect('/registered/' . $tournament_id);
     }
 
-    public function withdraw($user_id)
+    public function withdraw($tournament_id)
     {
+        try {
+            //determining if they are logged in, and finding the tournament id
+            $player = Auth::user();
+            $tournament = Tournament::find($tournament_id);
 
+            //if they are logged, detach the tournament from the player
+            $player->tournaments()->detach($tournament->id);
+        } catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
+        }
+
+        return back();
+    }
+
+    public function registration_form($tournament_id)
+    {
+        try {
+            $tournament = Tournament::find($tournament_id);
+            $player = Auth::user();
+
+        } catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
+        }
+        return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player);
     }
 
 }
