@@ -19,9 +19,9 @@ class Site extends Migration
             $table->integer('home')->nullable()->unsigned()->length(10);
             $table->foreign('home')->references('id')->on('pages')->onDelete('cascade');
             $table->integer('next_tournament')->nullable()->unsigned()->length(10);
-            $table->foreign('next_tournament')->references('id')->on('pages')->onDelete('cascade');
+            $table->foreign('next_tournament')->references('id')->on('tournaments')->onDelete('cascade');
             $table->integer('previous_tournament')->nullable()->unsigned()->length(10);
-            $table->foreign('previous_tournament')->references('id')->on('pages')->onDelete('cascade');
+            $table->foreign('previous_tournament')->references('id')->on('tournaments')->onDelete('cascade');
         });
     }
 
