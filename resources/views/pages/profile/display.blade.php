@@ -81,6 +81,17 @@
 
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="rating" class="col-md-4 control-label">Age Group</label>
+
+                                <div class="col-md-6">
+                                    <select id="age" class="form-control" name="age" required>
+                                        <option value="Adult" <?=($user->age == 'Adult')? 'selected' : ''?>>Adult</option>
+                                        <option value="Junior" <?=($user->age == 'Junior')? 'selected' : ''?>>Junior</option>
+                                        <option value="VIU Student" <?=($user->age == 'VIU Student')? 'selected' : ''?>>VIU Student</option>
+                                    </select>
+                                </div>
+                            </div>
                             @if(Auth::user()->isAdmin)
                                 <div class="form-group">
                                     <label for="isAdmin" class="col-md-4 control-label">Is Admin</label>
@@ -92,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="cfc_expiry_date" class="col-md-4 control-label">Is Admin</label>
+                                    <label for="cfc_expiry_date" class="col-md-4 control-label">CFC Expiry</label>
                                     <div class="col-md-6">
                                         <input id="cfc_expiry_date" type="date" class="form-control" name="cfc_expiry_date" value="{{ old('cfc_expiry_date') }}" required>
                                     </div>

@@ -96,11 +96,9 @@ class FrontendController extends Controller
             $players_pivot = $tournament->users()->get();
 
             $players = array();
-            $registered = 'false';
+            $registered = false;
             foreach ($players_pivot as $pivot) {
-                var_dump($registered);
                 if ($pivot->id == Auth::id()) {
-                    echo "I am groot";
                     $registered = 'true';
                 }
                 $player['player'] = User::find($pivot->id);

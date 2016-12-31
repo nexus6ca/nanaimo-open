@@ -53,7 +53,9 @@ class UserController extends Controller
                         'prov'          => $data['prov'],
                         'postal'        => $data['postal'],
                         'cfc_number'    => $data['cfc_number'],
-                        'rating'        => $data['rating']
+                        'rating'        => $data['rating'],
+                        'age'           => $data['age']
+
                     ),
                     array(
                         'name'          => 'required|max:255',
@@ -64,7 +66,8 @@ class UserController extends Controller
                         'prov'          => 'required|max:3',
                         'postal'        => 'required|max:7',
                         'cfc_number'    => 'integer',
-                        'rating'        => 'integer'
+                        'rating'        => 'integer',
+                        'age'           => 'required'
                     )
                 );
                 // Check to see if the validator passes
@@ -84,6 +87,7 @@ class UserController extends Controller
                 $user->postal = $data['postal'];
                 $user->cfc_number = $data['cfc_number'];
                 $user->rating = $data['rating'];
+                $user->age = $data['age'];
                 if(Auth::user()->isAdmin) {
                     $user->isAdmin = $data['isAdmin'];
                     $user->cfc_expiry_date = $data['cfc_expiry_date'];

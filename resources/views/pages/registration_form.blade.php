@@ -20,6 +20,10 @@
                                 {{Auth::user()->rating}}
                             </p>
                             <p>
+                                <label for="rating" class="col-md-4 control-label">Age Group</label>
+                                {{Auth::user()->age}}
+                            </p>
+                            <p>
                                 <label for="address1" class="col-md-4 control-label">Address Line 1</label>
                                 {{Auth::user()->address1}}
                             </p>

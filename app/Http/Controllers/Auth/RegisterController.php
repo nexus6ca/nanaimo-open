@@ -57,7 +57,8 @@ class RegisterController extends Controller
             'postal'        => 'required|max:7',
             'password'      => 'required|min:6|confirmed',
             'cfc_number'    => 'integer',
-            'rating'        => 'integer'
+            'rating'        => 'integer',
+            'age'           => 'required'
         ]);
     }
 
@@ -80,7 +81,8 @@ class RegisterController extends Controller
             'password'      => bcrypt($data['password']),
             'cfc_number'    => $data['cfc_number'],
             'rating'        => $data['rating'],
-            'cfc_expiry_date' => date("Y-m-d H:i:s")
+            'cfc_expiry_date' => $data['cfc_expiry_date'],
+            'age'           => $data['age']
         ]);
     }
 

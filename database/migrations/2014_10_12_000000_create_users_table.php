@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('cfc_number')->unsigned();
             $table->date('cfc_expiry_date')->nullable();
             $table->integer('rating')->unsigned();
+            $table->string('age')->default('Adult');
             $table->string('password');
             $table->boolean('isAdmin')->default(false);
             $table->rememberToken();
