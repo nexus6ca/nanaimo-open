@@ -43,7 +43,7 @@
                             </p>
                             <p>
                                 <label for="postal" class="col-md-4 control-label">Postal Code</label>
-                                {{Auth::user()->prov}}
+                                {{Auth::user()->postal}}
                             </p>
                         </div>
                         <div class="well well-sm">

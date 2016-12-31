@@ -97,6 +97,7 @@ class TournamentController extends Controller
             $tournament->start_date = $formData['start_date'];
             $tournament->end_date = $formData['end_date'];
             $tournament->early_reg_end = $formData['early_reg_end'];
+            $tournament->details = $formData['completed'];
             $tournament->details = $formData['details'];
 
             $tournament->save();

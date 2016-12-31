@@ -105,7 +105,7 @@
                                 <div class="form-group">
                                     <label for="cfc_expiry_date" class="col-md-4 control-label">CFC Expiry</label>
                                     <div class="col-md-6">
-                                        <input id="cfc_expiry_date" type="date" class="form-control" name="cfc_expiry_date" value="{{ old('cfc_expiry_date') }}" required>
+                                        <input id="cfc_expiry_date" type="date" class="form-control" name="cfc_expiry_date" value="{{ $user->cfc_expiry_date }}" required>
                                     </div>
                                 </div>
                             @endif
