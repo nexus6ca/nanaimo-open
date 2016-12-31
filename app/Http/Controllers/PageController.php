@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Page;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Input;
@@ -28,7 +29,7 @@ class PageController extends Controller
             }
             $categories = DB::table('page_categories')->get();
         } catch (Exception $e) {
-            return view('/errors/error')->with('page', 'Add Page')->with('messages', $messages[] = $e->getMessage());
+            return view('/errors/error')->with('page', 'Add Page')->with('messages', $e->getMessage());
         }
         // Take the form input and generate a page in the database.
         return view('/backend/pages/add')->with('categories', $categories);
@@ -48,8 +49,7 @@ class PageController extends Controller
             $categories = DB::table('page_categories')->get();
             $page = Page::find($id);
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Editing Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Editing Page')->with('messages', $e->getMessage());
         }
         return view('/backend/pages/edit')->with('page', $page)->with('categories', $categories);;
     }
@@ -70,8 +70,7 @@ class PageController extends Controller
             $page = Page::find($id);
             $page->delete();
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
         }
 
         return redirect('/backend/pages/browse');
@@ -91,8 +90,7 @@ class PageController extends Controller
             $pages = Page::all();
 
         } catch (Exception $e) {
-            $messages[] = $e->getMessage();
-            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $messages);
+            return view('/errors/error')->with('page', 'Delete Page')->with('messages', $e->getMessage());
         }
 
         return view('/backend/pages/browse')->with('result', $pages);
@@ -148,12 +146,7 @@ class PageController extends Controller
             $page->save();
 
         } catch (Exception $e) {
-            $errors = $e->getMessage();
-
-            foreach ($errors->all() as $message) {
-                $messages[] = $message;
-                return view('/errors/error')->with('page', 'Saving Page')->with('messages', $messages);
-            }
+            return view('/errors/error')->with('page', 'Saving Page')->with('messages', $e->getMessage());
         }
         return redirect('/backend/pages/browse');
     }

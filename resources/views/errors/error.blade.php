@@ -2,9 +2,7 @@
 @section('content')
     <label>Error on {{$page}}</label>
     <p>
-        @foreach($messages as $message)
-            {{$message}}
-        @endforeach
+            {{$messages}}
     </p>
-    <a class="btn btn-primary" href="/">Return to main page.</a>
+    <a class="btn btn-primary" href="{{ URL::previous() }}">Back</a>
 @stop

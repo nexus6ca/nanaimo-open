@@ -2,6 +2,7 @@
 @section('content')
     <?php
     $provs = array('BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'PE', 'NS', 'NF', 'YK', 'NT', 'NU');
+    session()->put('url.intended', URL::previous());
     ?>
     <div class="container">
         <div class="row">
@@ -65,6 +66,32 @@
                                            value="{{ $user->postal }}" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="cfc_number" class="col-md-4 control-label">CFC Number</label>
+
+                                <div class="col-md-6">
+                                    <input id="cfc_number" type="number" class="form-control" name="cfc_number" value="{{ $user->cfc_number }}" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rating" class="col-md-4 control-label">Rating</label>
+
+                                <div class="col-md-6">
+                                    <input id="rating" type="number" class="form-control" name="rating" value="{{ $user->rating }}" min="0" max="2900" required>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rating" class="col-md-4 control-label">Age Group</label>
+
+                                <div class="col-md-6">
+                                    <select id="age" class="form-control" name="age" required>
+                                        <option value="Adult" <?=($user->age == 'Adult')? 'selected' : ''?>>Adult</option>
+                                        <option value="Junior" <?=($user->age == 'Junior')? 'selected' : ''?>>Junior</option>
+                                        <option value="VIU Student" <?=($user->age == 'VIU Student')? 'selected' : ''?>>VIU Student</option>
+                                    </select>
+                                </div>
+                            </div>
                             @if(Auth::user()->isAdmin)
                                 <div class="form-group">
                                     <label for="isAdmin" class="col-md-4 control-label">Is Admin</label>
@@ -73,6 +100,12 @@
                                                value="1" <?=($user->isAdmin) ? 'checked=checked' : ''?>>Yes</input>
                                         <input name="isAdmin" type="radio"
                                                value="0" <?=(!$user->isAdmin) ? 'checked=checked' : ''?>>No</input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfc_expiry_date" class="col-md-4 control-label">CFC Expiry</label>
+                                    <div class="col-md-6">
+                                        <input id="cfc_expiry_date" type="date" class="form-control" name="cfc_expiry_date" value="{{ old('cfc_expiry_date') }}" required>
                                     </div>
                                 </div>
                             @endif

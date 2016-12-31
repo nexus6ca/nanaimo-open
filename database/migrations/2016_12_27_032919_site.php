@@ -32,6 +32,6 @@ class Site extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('site_pages');
     }
 }

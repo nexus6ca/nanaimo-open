@@ -10,8 +10,8 @@
         <ul class="nav navbar-nav">
             @if ($active == null) $active="home" @endif
             <li @if($active=='home')class="active"@endif><a href="/">Home</a></li>
-            <li @if($active=='next')class="active"@endif><a href="/next_tournament">Upcoming Tournament</a></li>
-            <li @if($active=='previous')class="active"@endif><a href="/previous_tournament">Past Tournaments</a></li>
+            <li @if($active=='next_tournament')class="active"@endif><a href="/next_tournament">Upcoming Tournament</a></li>
+            <li @if($active=='previous_tournament')class="active"@endif><a href="/previous_tournament">Past Tournaments</a></li>
             <li @if($active=='gallery')class="active"@endif><a href="/gallery">Gallery</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

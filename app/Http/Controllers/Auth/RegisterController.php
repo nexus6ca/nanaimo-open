@@ -56,6 +56,9 @@ class RegisterController extends Controller
             'prov'          => 'required|max:3',
             'postal'        => 'required|max:7',
             'password'      => 'required|min:6|confirmed',
+            'cfc_number'    => 'integer',
+            'rating'        => 'integer',
+            'age'           => 'required'
         ]);
     }
 
@@ -76,6 +79,10 @@ class RegisterController extends Controller
             'prov'          => $data['prov'],
             'postal'        => $data['postal'],
             'password'      => bcrypt($data['password']),
+            'cfc_number'    => $data['cfc_number'],
+            'rating'        => $data['rating'],
+            'cfc_expiry_date' => $data['cfc_expiry_date'],
+            'age'           => $data['age']
         ]);
     }
 

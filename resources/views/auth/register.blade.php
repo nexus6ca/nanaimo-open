@@ -98,11 +98,53 @@
                             <label for="postal" class="col-md-4 control-label">Postal Code</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="postal" class="form-control" name="postal" value="{{ old('postal') }}" required>
+                                <input id="postal" type="string" class="form-control" name="postal" value="{{ old('postal') }}" required>
 
                                 @if ($errors->has('postal'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('postal') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('cfc_number') ? ' has-error' : '' }}">
+                            <label for="cfc_number" class="col-md-4 control-label">CFC Number</label>
+
+                            <div class="col-md-6">
+                                <input id="cfc_number" type="number" class="form-control" name="cfc_number" value="{{ old('cfc_number') }}" min="0" required>
+
+                                @if ($errors->has('cfc_number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cfc_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
+                            <label for="rating" class="col-md-4 control-label">Rating</label>
+
+                            <div class="col-md-6">
+                                <input id="rating" type="number" class="form-control" name="rating" value="{{ old('rating') }}" min="0" max="2900" required>
+
+                                @if ($errors->has('rating'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('rating') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
+                            <label for="age" class="col-md-4 control-label">Age Group</label>
+                            <div class="col-md-6">
+                                <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}">
+                                <select id="age" class="form-control" name="age" required>
+                                    <option value="Adult" <?=(old('age') == 'Adult')? 'selected' : ''?>>Adult</option>
+                                    <option value="Junior" <?=(old('age') == 'Junior')? 'selected' : ''?>>Junior</option>
+                                    <option value="VIU Student" <?=(old('age') == 'VIU Student')? 'selected' : ''?>>VIU Student</option>
+                                </select>
+                                @if ($errors->has('age'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('age') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -128,7 +170,6 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

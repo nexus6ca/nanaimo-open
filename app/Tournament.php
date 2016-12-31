@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tournament extends Model
 {
     // Relationship to Players - one player many tournament
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User', 'tournament_user')->withPivot('byes')->withPivot('paid');
+        return $this->belongsToMany('App\User', 'tournament_user')->withPivot('byes')->withPivot('paid')->withTimestamps();
     }
 }

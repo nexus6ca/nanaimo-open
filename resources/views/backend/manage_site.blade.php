@@ -26,7 +26,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for title>Next Tournament Page</label>
+                            <label for title>Previous Tournament Page</label>
                             <select id="previous_tournament_page" class="form-control" name="previous_tournament_page" title="home_page">
                                 @foreach ($tournaments as $tournament)
                                     <option value="{{$tournament->id}}" <?=(isset($site->previous_tournament) && $site->previous_tournament == $tournament->id) ? 'selected' : '' ?>>{{$tournament->name}}</option>

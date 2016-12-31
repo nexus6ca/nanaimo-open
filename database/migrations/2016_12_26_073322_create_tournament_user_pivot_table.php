@@ -20,6 +20,7 @@ class CreateTournamentUserPivotTable extends Migration
             $table->primary(['tournament_id', 'user_id']);
             $table->string('byes')->nullable();
             $table->boolean('paid')->default(false);
+            $table->timestamps();
         });
     }
 
