@@ -39,8 +39,10 @@ Route::post('/backend/pages/save/{id}', 'PageController@save')->middleware('auth
 // Tournament Management Routes
 
 Route::get('/tournament/registration_form/{id}', 'TournamentController@registration_form')->middleware('auth');
-Route::get('/tournament/withdraw/{id}', 'TournamentController@withdraw');
+Route::get('/tournament/withdraw/{id}', 'TournamentController@withdraw')->middleware('auth');
 Route::get('/backend/tournament/browse','TournamentController@browse')->middleware('auth');
+Route::get('/tournament/player_details/{tournament_id}/{user_id}', 'TournamentController@player_details');
+Route::post('/backend/tournament/update_player/{tournament_id}/{player_id}', 'TournamentController@update_player');
 Route::get('/backend/tournament/add', 'TournamentController@add')->middleware('auth');
 Route::get('/backend/tournament/edit/{id}', 'TournamentController@edit')->middleware('auth');
 Route::get('/backend/tournament/delete/{id}', 'TournamentController@delete')->middleware('auth');

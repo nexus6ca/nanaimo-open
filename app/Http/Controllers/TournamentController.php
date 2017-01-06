@@ -190,4 +190,42 @@ class TournamentController extends Controller
         return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player);
     }
 
+    public function player_details($tournament_id, $player_id) {
+        try {
+            $tournament = Tournament::find($tournament_id);
+            $player = $tournament->users()->find($player_id);
+            $result = array(
+                'tournament' => $tournament,
+                'user'       => User::find($player_id),
+            );
+        } catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Get Player Details Page')->with('messages', $e->getMessage());
+        }
+
+        return view('/backend/tournament/player_details')->with('result', $result)->with('player', $player);
+
+    }
+
+    public function update_player ($tournament_id, $player_id) {
+        try {
+            $tournament = Tournament::find($tournament_id);
+            $user = User::find($player_id);
+            $player = $tournament->users()->find($user->id);
+            $data = Input::all();
+            if(isset($data['byes']))
+                $player->pivot->byes = $data['byes'];
+            $player->pivot->paid =  $data['paid'];
+
+            $player->save();
+
+
+
+        } catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Update Player Details Page')->with('messages', $e->getMessage());
+        }
+        return redirect('/registered/'.$tournament_id);
+    }
+
+
+
 }

@@ -20,7 +20,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <?php $player = null; ?>
                             @foreach ($players as $p)
+                                <?php if(Auth::id() == $p['player']->id) $player = $p['player']; ?>
                                 <tr <?=Auth::id() == $p['player']->id ? 'class="registered"' : ''?> >
                                     <td>{{$p['player']->name}}</td>
                                     <td>{{$p['player']->cfc_number}}</td>
@@ -33,6 +35,11 @@
                                             <a class="btn btn-primary" href="/tournament/withdraw/{{$tournament->id}}">Withdraw from this tournament</a>
                                         @endif
                                     </td>
+                                    <td>
+                                        @if(Auth::user()->isAdmin)
+                                            <a class="btn btn-primary" href="/tournament/player_details/{{$tournament->id}}/{{$p['player']->id}}">Player Details</a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -40,14 +47,14 @@
                         @if (!$registered)
                            <a class="btn btn-primary" href="/tournament/registration_form/{{$tournament->id}}">Register for this tournament</a>
                         @endif
-                        @if ($registered)
+                        @if ($registered && !($player->tournaments()->find($tournament->id)->pivot->paid))
                             <div class="well well-sm col-sm-12">
                                 <p>
                                     Thank you for registering for this tournament. Payment is due on registration. Any players
                                 who have not completed a payment option by the end of the early bird period will lose the discount. If
-                                    payment is not recieved by the end of the on site registration you will not be paired in the first round.
+                                    payment is not received by the end of the on site registration you will not be paired in the first round.
 
-                                    You may pay with interact email transfer to nanaimo.open@gmailcom or with PayPal.
+                                    You may pay with interact email transfer to {{Config::get('constants._SITE_EMAIL')}}  or with PayPal using the link below.
                                 </p>
                             </div>
                             @if(Auth::user()->age == 'Adult')
