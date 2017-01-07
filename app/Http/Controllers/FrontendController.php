@@ -107,12 +107,14 @@ class FrontendController extends Controller
                 $players[] = $player;
             }
 
+            return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);
+
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
             return view('/errors/error')->with('page', 'Tournament Registration Page')->with('messages', $errors);
         }
-        return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);
+
     }
 
 }

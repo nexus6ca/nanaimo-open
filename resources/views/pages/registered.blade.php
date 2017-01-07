@@ -36,7 +36,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(Auth::user()->isAdmin)
+                                        @if(Auth::check() && Auth::user()->isAdmin)
                                             <a class="btn btn-primary" href="/tournament/player_details/{{$tournament->id}}/{{$p['player']->id}}">Player Details</a>
                                         @endif
                                     </td>

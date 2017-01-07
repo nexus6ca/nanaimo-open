@@ -49,6 +49,7 @@ Route::get('/backend/tournament/delete/{id}', 'TournamentController@delete')->mi
 Route::post('/backend/tournament/save', 'TournamentController@save')->middleware('auth');
 Route::post('/backend/tournament/save/{id}', 'TournamentController@save')->middleware('auth');
 Route::post('/tournament/register/{id}', 'TournamentController@register')->middleware('auth');
+
 // User Routes
 
 Route::get('/profile/display', 'UserController@display')->middleware('auth');
