@@ -136,7 +136,6 @@
                         <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
                             <label for="age" class="col-md-4 control-label">Age Group</label>
                             <div class="col-md-6">
-                                <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}">
                                 <select id="age" class="form-control" name="age" required>
                                     <option value="Adult" <?=(old('age') == 'Adult')? 'selected' : ''?>>Adult</option>
                                     <option value="Junior" <?=(old('age') == 'Junior')? 'selected' : ''?>>Junior</option>
