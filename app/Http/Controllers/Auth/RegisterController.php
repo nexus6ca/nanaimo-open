@@ -57,6 +57,7 @@ class RegisterController extends Controller
             'postal'        => 'required|max:7',
             'password'      => 'required|min:6|confirmed',
             'cfc_number'    => 'integer',
+            'cfc_expiry_date' => 'date',
             'rating'        => 'integer',
             'age'           => 'required'
         ]);
