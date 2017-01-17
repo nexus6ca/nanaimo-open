@@ -4,26 +4,26 @@
         <div class="row" style="margin-top: 10px">
             <div class="col-md-12 col-md-offset-0">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{$result['user']->name}}'s Details for {{$result['tournament']->name}}</div>
+                    <div class="panel-heading">{{$player->name}}'s Details for {{$tournament->name}}</div>
                     <div class="panel-body">
-                        <form name="edit" action="/backend/tournament/update_player/{{$result['tournament']->id}}/{{$player->user_id}}" method="post">
+                        <form name="edit" action="/backend/tournament/update_player/{{$tournament->id}}/{{$player->id}}" method="post">
                             <div class="form-group col-md-6">
                                 <label for="title">Byes Requested</label>
                                 <div class="col-md-8">
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="1" <?=(substr($player->pivot->byes, '1') ? 'selected' : '')?>>Round 1 Sat. 10:00am
+                                        <input type="checkbox" name="byes[]" value="1" <?=(strpos($player->pivot->byes, '1')!== false ? 'checked' : '')?>>Round 1 Sat. 10:00am
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="2" <?=(substr($player->pivot->byes, '2') ? 'selected' : '')?>> Round 2 Sat. 2:30pm
+                                        <input type="checkbox" name="byes[]" value="2" <?=(strpos($player->pivot->byes, '2') !== false ? 'checked' : '')?>> Round 2 Sat. 2:30pm
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="3" <?=(substr($player->pivot->byes, '3') ? 'selected' : '')?>>Round 3 Sat. 6:00pm
+                                        <input type="checkbox" name="byes[]" value="3" <?=(strpos($player->pivot->byes, '3') !== false ? 'checked' : '')?>>Round 3 Sat. 6:00pm
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="4" <?=(substr($player->pivot->byes, '4') ? 'selected' : '')?>>Round 4 Sun. 10:00am
+                                        <input type="checkbox" name="byes[]" value="4" <?=(strpos($player->pivot->byes, '4') !== false ? 'selected' : '')?>>Round 4 Sun. 10:00am
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="5" <?=(substr($player->pivot->byes, '5') ? 'selected' : '')?>>Round 5 Sun. 2:30
+                                        <input type="checkbox" name="byes[]" value="5" <?=(strpos($player->pivot->byes, '5') !== false ? 'selected' : '')?>>Round 5 Sun. 2:30
                                     </label>
                                 </div>
                             </div>
