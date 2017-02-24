@@ -20,10 +20,10 @@
                                         <input type="checkbox" name="byes[]" value="3" <?=(strpos($player->pivot->byes, '3') !== false ? 'checked' : '')?>>Round 3 Sat. 6:00pm
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="4" <?=(strpos($player->pivot->byes, '4') !== false ? 'selected' : '')?>>Round 4 Sun. 10:00am
+                                        <input type="checkbox" name="byes[]" value="4" <?=(strpos($player->pivot->byes, '4') !== false ? 'checked' : '')?>>Round 4 Sun. 10:00am
                                     </label>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="byes[]" value="5" <?=(strpos($player->pivot->byes, '5') !== false ? 'selected' : '')?>>Round 5 Sun. 2:30
+                                        <input type="checkbox" name="byes[]" value="5" <?=(strpos($player->pivot->byes, '5') !== false ? 'checked' : '')?>>Round 5 Sun. 2:30
                                     </label>
                                 </div>
                             </div>
