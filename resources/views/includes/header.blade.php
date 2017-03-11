@@ -8,9 +8,11 @@
             <a class="navbar-brand" href="/">VIU Chess Club</a>
         </div>
         <ul class="nav navbar-nav">
-            @if ($active == null) $active="home" @endif
+            <?php if ($active == null) {
+                $active="home";
+            } ?>
             <li @if($active=='home')class="active"@endif><a href="/">Home</a></li>
-            <li @if($active=='next_tournament')class="active"@endif><a href="/next_tournament">Upcoming Tournament</a></li>
+            <li @if($active=='next_tournament')class="active"@endif><a href="/next_tournament">Current Tournament</a></li>
             <li @if($active=='previous_tournament')class="active"@endif><a href="/previous_tournament">Past Tournaments</a></li>
             <li @if($active=='gallery')class="active"@endif><a href="/gallery">Gallery</a></li>
         </ul>
