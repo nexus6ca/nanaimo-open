@@ -21,6 +21,10 @@ Route::get('/previous_tournament', 'FrontendController@previous_tournament');
 Route::get('/gallery', 'FrontendController@gallery');
 Route::get('/registered/{id}', 'FrontendController@registered');
 
+// Mobile
+
+Route::get('/mobile', 'FrontendController@mobile');
+
 // Backend Routes
 
 Route::get('/backend/home', 'BackendController@home')->middleware('auth');
