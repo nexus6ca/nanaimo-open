@@ -119,15 +119,22 @@ class FrontendController extends Controller
 
     public function mobile()
     {
-        $user = array();
-        $result = User::get()->where('email', '=', $_GET['email']);
+        $result = User::all();
         //    mysqli_query($con,"SELECT `name`, `rating` FROM users WHERE `email` = " . $_GET['email']);
 
+        $user = array();
+
         if (!empty($result)) {
-            $user['name'] = $result[0]->name;
-            $user['email'] = $result[0]->email;
-            $user['rating'] = $result[0]->rating;
-            $user = json_encode($user);
+            foreach($result as $contact) {
+                $user[] =  array(
+                    'name' => $contact->name,
+                    'email' => $contact->email,
+                    'rating' => $contact->rating
+                );
+            }
+
+            $user = json_encode(array('contacts' => $user));
+
             return view('/mobile/mobile')->with('user', $user);
         }
 
