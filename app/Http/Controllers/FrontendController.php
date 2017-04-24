@@ -15,7 +15,7 @@ class FrontendController extends Controller
     /**
      * Displays the Page set as home.
      *
-     * @return $this
+     * @return \Illuminate\View\View
      */
     public function home()
     {
@@ -117,21 +117,19 @@ class FrontendController extends Controller
 
     }
 
-    public function mobile() {
-        $con=mysqli_connect("localhost","chessadmin","mrG00dbyt3s","chessdb");
+    public function mobile()
+    {
+        $user = array();
+        $result = User::get()->where('email', '=', $_GET['email']);
+        //    mysqli_query($con,"SELECT `name`, `rating` FROM users WHERE `email` = " . $_GET['email']);
 
-        if (mysqli_connect_errno($con)) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        if (!empty($result)) {
+            $user['name'] = $result[0]->name;
+            $user['email'] = $result[0]->email;
+            $user['rating'] = $result[0]->rating;
+            $user = json_encode($user);
+            return view('/mobile/mobile')->with('user', $user);
         }
 
-        $result = mysqli_query($con,"SELECT `name`, `rating` FROM users WHERE `email` = " . $_GET['email']);
-
-        $row = mysqli_fetch_array($result);
-        $data = $row[0];
-
-        if($data){
-            echo $data;
-        }
-        mysqli_close($con);
     }
 }
