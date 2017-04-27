@@ -23,7 +23,7 @@ Route::get('/registered/{id}', 'FrontendController@registered');
 
 // Mobile
 
-Route::get('/mobile', 'FrontendController@mobile');
+// Route::get('/mobile', 'FrontendController@mobile');
 
 // Backend Routes
 
