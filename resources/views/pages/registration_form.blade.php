@@ -13,43 +13,21 @@
                             </p>
                             <p>
                                 <label for="cfc_number" class="col-md-4 control-label">CFC Number</label>
-                                {{Auth::user()->rating}}
+                                {{Auth::user()->cfc_number}}
                             </p>
                             <p>
                                 <label for="rating" class="col-md-4 control-label">Rating</label>
-                                {{Auth::user()->rating}}
+                                {{$rating}}
                             </p>
                             <p>
                                 <label for="rating" class="col-md-4 control-label">Age Group</label>
                                 {{Auth::user()->age}}
                             </p>
                             <p>
-                                <label for="address1" class="col-md-4 control-label">Address Line 1</label>
-                                {{Auth::user()->address1}}
-                            </p>
-                            @if(Auth::user()->address2 != null)
-                            <p>
-                                <label for="address2" class="col-md-4 control-label">Address Line 2</label>
-                                {{Auth::user()->address2}}
-                            </p>
-                            @endif
-                            <p>
-                                <label for="city" class="col-md-4 control-label">City</label>
-                                {{Auth::user()->city}}
-                            </p>
-                            <p>
-                                <label for="prov" class="col-md-4 control-label">Province</label>
-                                {{Auth::user()->prov}}
-                            </p>
-                            <p>
-                                <label for="postal" class="col-md-4 control-label">Postal Code</label>
-                                {{Auth::user()->postal}}
+                                <label for="expiry" class="col-md-4 control-label">Expiry Date</label>
+                                {{ $expiry }}
                             </p>
                         </div>
-                        <div class="well well-sm">
-                            Please update your information above if incorrect.
-                        </div>
-                        <a class="btn btn-primary" href="/profile/display">Update Proile</a>
 
                         <form class="form-horizontal" role="form" method="POST" action="/tournament/register/<?=$tournament->id?>">
                             {{ csrf_field() }}

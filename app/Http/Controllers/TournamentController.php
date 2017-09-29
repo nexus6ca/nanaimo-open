@@ -191,13 +191,29 @@ class TournamentController extends Controller
     public function registration_form($tournament_id)
     {
         try {
+            $rating = 0;
+            $expiry = 0;
             $tournament = Tournament::find($tournament_id);
             $player = Auth::user();
+
+            $rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
+            $ratingList = array();
+
+            foreach($rows as $row) {
+                $ratingList[] = str_getcsv($row);
+            }
+
+            foreach ($ratingList as $member) {
+                if($member[0] == $player->cfc_number) {
+                    $rating = $member[6];
+                    $expiry = $member[1];
+                }
+            }
 
         } catch (Exception $e) {
             return view('/errors/error')->with('page', 'Registration Form Page')->with('messages', $e->getMessage());
         }
-        return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player);
+        return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player)->with('rating', $rating)->with('expiry', $expiry);
     }
 
     public function player_details($tournament_id, $player_id) {
