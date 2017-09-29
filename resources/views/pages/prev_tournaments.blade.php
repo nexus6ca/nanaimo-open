@@ -9,14 +9,17 @@
 
                 </div>
                 @foreach ($tournaments as $tournament)
-                    <div class="panel panel-default">
-                        <div class="panel-heading tournament-title" data-target="<?= $tournament->id?>">
-                            {{ $tournament->name }}
+                    @if($tournament->completed)
+                        <div class="panel panel-default">
+                            <div class="panel-heading tournament-title" data-target="<?= $tournament->id?>">
+                                {{ $tournament->name }}
+                            </div>
+                            <div class="panel-body tournament-details" id="details-<?=$tournament->id?>" style="display:none">
+                                <div><?=$tournament->report?></div>
+                                <div><?=$tournament->crosstable?></div>
+                            </div>
                         </div>
-                        <div class="panel-body tournament-details" id="details-<?=$tournament->id?>" style="display:none">
-                            <?=$tournament->details?>
-                        </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
         </div>
