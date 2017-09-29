@@ -191,8 +191,6 @@ class TournamentController extends Controller
     public function registration_form($tournament_id)
     {
         try {
-            $rating = 0;
-            $expiry = 0;
             $tournament = Tournament::find($tournament_id);
             $player = Auth::user();
 
@@ -205,15 +203,20 @@ class TournamentController extends Controller
 
             foreach ($ratingList as $member) {
                 if($member[0] == $player->cfc_number) {
-                    $rating = $member[6];
-                    $expiry = $member[1];
+                    $player->rating = $member[6];
+                    $date = date_create_from_format('d/m/Y', $member[1]);
+
+                    $player->cfc_expiry_date = $date->format('Y-m-d');
+                    $player->save();
                 }
             }
+
+
 
         } catch (Exception $e) {
             return view('/errors/error')->with('page', 'Registration Form Page')->with('messages', $e->getMessage());
         }
-        return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player)->with('rating', $rating)->with('expiry', $expiry);
+        return view('/pages/registration_form')->with('tournament', $tournament)->with('player', $player);
     }
 
     public function player_details($tournament_id, $player_id) {

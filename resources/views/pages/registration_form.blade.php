@@ -9,23 +9,23 @@
                         <div class="player_info">
                             <p>
                                 <label for="name" class="col-md-4 control-label">Player Name</label>
-                                {{Auth::user()->name}}
+                                {{$player->name}}
                             </p>
                             <p>
                                 <label for="cfc_number" class="col-md-4 control-label">CFC Number</label>
-                                {{Auth::user()->cfc_number}}
+                                {{$player->cfc_number}}
                             </p>
                             <p>
                                 <label for="rating" class="col-md-4 control-label">Rating</label>
-                                {{$rating}}
+                                {{$player->rating}}
                             </p>
                             <p>
                                 <label for="rating" class="col-md-4 control-label">Age Group</label>
-                                {{Auth::user()->age}}
+                                {{$player->age}}
                             </p>
                             <p>
                                 <label for="expiry" class="col-md-4 control-label">Expiry Date</label>
-                                {{ $expiry }}
+                                {{ $player->cfc_expiry_date }}
                             </p>
                         </div>
 
