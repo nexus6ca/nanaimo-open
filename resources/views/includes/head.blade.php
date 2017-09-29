@@ -2,7 +2,7 @@
 <meta name="description" content="">
 <meta name="author" content="Scotch">
 
-<title>VIU Chess Club</title>
+<title>Nanaimo Open Chess Tournament</title>
 
 <!-- load bootstrap from a cdn -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -12,7 +12,7 @@
       crossorigin="anonymous">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script type="text/javascript" src="{{ URL::asset('/js/tinymce.js') }}"></script>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=oh5ws399rzhqudty6ewt08gbx60u3eyz8q29xcmarl0o31gi"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <script type="text/javascript" src="{{ URL::asset('/js/main.js') }}"></script>
 <link rel="stylesheet" href="css/blueimp-gallery.min.css">

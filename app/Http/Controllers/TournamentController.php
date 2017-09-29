@@ -70,6 +70,9 @@ class TournamentController extends Controller
                     'early_reg_end' => $formData['early_reg_end'],
                     'completed' => $formData['completed'],
                     'details' => $formData['details'],
+                    'crosstable' => $formData['crosstable'],
+                    'pairings' => $formData['pairings'],
+                    'report' => $formData['report']
                 ),
                 array(
                     'name' => 'string|min:2|required',
@@ -79,6 +82,9 @@ class TournamentController extends Controller
                     'completed' => 'boolean|required',
                     'early_reg_end' => 'date|nullable',
                     'details' => 'string|required',
+                    'crosstable' => 'string',
+                    'pairings' => 'string',
+                    'report' => 'string'
 
                 )
             );
@@ -97,8 +103,11 @@ class TournamentController extends Controller
             $tournament->start_date = $formData['start_date'];
             $tournament->end_date = $formData['end_date'];
             $tournament->early_reg_end = $formData['early_reg_end'];
-            $tournament->details = $formData['completed'];
+            $tournament->completed = $formData['completed'];
             $tournament->details = $formData['details'];
+            $tournament->crosstable = $formData['crosstable'];
+            $tournament->pairings = $formData['pairings'];
+            $tournament->report = $formData['report'];
 
             $tournament->save();
 

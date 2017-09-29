@@ -29,8 +29,32 @@
                                 <input name="completed" type="radio" value="0" <?=(!$tournament->completed)?'checked=checked' : ''?>>No</input>
                             </div>
                             <div class="form-group">
-                                <label for="entry">Tournament Details</label>
-                                <textarea class="form-control" name="details">{{$tournament->details}}</textarea>
+                                <div class="tabs">
+                                    <ul class="tab-links" style="padding:0px; margin-bottom: 5px">
+                                        <li class="active"><a href="#details">Details</a></li>
+                                        <li><a href="#crosstable">Crosstable</a></li>
+                                        <li><a href="#pairings">Pairings</a></li>
+                                        <li><a href="#report">Report</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab active" id="details">
+                                        <label for="entry">Tournament Details</label>
+                                        <textarea class="form-control" name="details">{{$tournament->details}}</textarea>
+                                    </div>
+                                    <div class="tab" id="crosstable">
+                                        <label for="crosstable">Crosstable</label>
+                                        <textarea class="form-control" name="crosstable">{{$tournament->crosstable}}</textarea>
+                                    </div>
+                                    <div class="tab" id="pairings">
+                                        <label for="pairings">Pairings</label>
+                                        <textarea class="form-control" name="pairings">{{$tournament->pairings}}</textarea>
+                                    </div>
+                                    <div class="tab" id="report">
+                                        <label for="report">Report</label>
+                                        <textarea class="form-control" name="report"> {{$tournament->report}}</textarea>
+                                    </div>
+                                </div>
                             </div>
                             <input type="submit" value="Save " class="button">
                             <input type="hidden" name="_token" value="<?php echo csrf_token() ?>"/>
@@ -40,4 +64,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.tabs .tab-links a').on('click', function(e)  {
+                var currentAttrValue = $(this).attr('href');
+
+                // Show/Hide Tabs
+                $(currentAttrValue).show().siblings().hide();
+                // Change/remove current tab to active
+                $(this).parent('li').addClass('active').siblings().removeClass('active');
+
+                e.preventDefault();
+            });
+        });
+    </script>
 @stop

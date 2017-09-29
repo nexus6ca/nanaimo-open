@@ -22,6 +22,9 @@ class Tournament extends Migration
             $table->date('early_reg_end')->nullable();
             $table->boolean('completed')->default(false);
             $table->longText('details');
+            $table->longText('crosstable');
+            $table->longText('pairings');
+            $table->longText('report');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <div class="header">
     <img class="logo" src="/images/viu_logo.png" alt="Chess Club Logo">
-    <div class="header_text"><h1>Vancouver Island University Chess Club</h1></div>
+    <div class="header_text"><h1>The Nanaimo Open Chess Tournament</h1></div>
 </div>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">

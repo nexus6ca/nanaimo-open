@@ -21,10 +21,6 @@ Route::get('/previous_tournament', 'FrontendController@previous_tournament');
 Route::get('/gallery', 'FrontendController@gallery');
 Route::get('/registered/{id}', 'FrontendController@registered');
 
-// Mobile
-
-// Route::get('/mobile', 'FrontendController@mobile');
-
 // Backend Routes
 
 Route::get('/backend/home', 'BackendController@home')->middleware('auth');
@@ -62,6 +58,7 @@ Route::get('/backend/users/browse', 'UserController@browse')->middleware('auth')
 Route::get('/backend/users/edit/{id}', 'UserController@display')->middleware('auth');
 Route::get('/backend/users/delete/{id}', 'UserController@delete')->middleware('auth');
 Route::post('/backend/users/save/{id}', 'UserController@save')->middleware('auth');
+Route::post('/backend/users/add/', 'UserController@add')->middleware('auth');
 
 Route::get('/logout', function() {
     Auth::logout();

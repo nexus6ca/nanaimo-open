@@ -32,7 +32,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <a class="btn btn-primary" id="add" href="/backend/pages/add">Add Page</a>
 
                         <script>
                             $(".delete").on("click", function () {

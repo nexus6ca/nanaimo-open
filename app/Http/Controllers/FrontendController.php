@@ -80,9 +80,12 @@ class FrontendController extends Controller
 
             return view('/errors/error')->with('page', 'Previous Tournament Page')->with('messages', $errors);
         }
+
+        $tournaments = Tournament::all();
+
         if (!empty($site->previous_tournament)) {
             $tournament = Tournament::find($site->previous_tournament);
-            return view('/pages/tournament')->with('tournament', $tournament)->with('active', 'previous_tournament');
+            return view('/pages/prev_tournaments')->with('tournaments', $tournaments);
         } else {
             return view('/pages/default')->with('active', 'home');
         }
@@ -116,27 +119,4 @@ class FrontendController extends Controller
         }
 
     }
-
-//    public function mobile()
-//    {
-//        $result = User::all();
-//        //    mysqli_query($con,"SELECT `name`, `rating` FROM users WHERE `email` = " . $_GET['email']);
-//
-//        $user = array();
-//
-//        if (!empty($result)) {
-//            foreach($result as $contact) {
-//                $user[] =  array(
-//                    'name' => $contact->name,
-//                    'email' => $contact->email,
-//                    'rating' => $contact->rating
-//                );
-//            }
-//
-//            $user = json_encode(array('contacts' => $user));
-//
-//            return view('/mobile/mobile')->with('user', $user);
-//        }
-//
-//    }
 }
