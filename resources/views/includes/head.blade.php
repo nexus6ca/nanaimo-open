@@ -13,6 +13,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=oh5ws399rzhqudty6ewt08gbx60u3eyz8q29xcmarl0o31gi"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
+<script>tinymce.init({
+        selector:'textarea',
+        plugins: "hr code anchor autoresize table",
+
+});
+</script>
 <script type="text/javascript" src="{{ URL::asset('/js/main.js') }}"></script>
 <link rel="stylesheet" href="css/blueimp-gallery.min.css">
