@@ -1,8 +1,9 @@
 .header {
     background-image: url('../images/Black-and-White-Chess-Games-l.jpg');
     color: white;
-    text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     height: 85px;
+    padding-top: 5px;
 }
 
 .logo {

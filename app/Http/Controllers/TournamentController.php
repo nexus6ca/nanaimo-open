@@ -64,28 +64,33 @@ class TournamentController extends Controller
             $formData = Input::all();
             $validator = Validator::make(
                 array(
-                    'name' => $formData['name'],
-                    'start_date' => $formData['start_date'],
-                    'end_date' => $formData['end_date'],
-                    'early_reg_end' => $formData['early_reg_end'],
-                    'completed' => $formData['completed'],
-                    'details' => $formData['details'],
-                    'crosstable' => $formData['crosstable'],
-                    'pairings' => $formData['pairings'],
-                    'report' => $formData['report']
+                    'name'              => $formData['name'],
+                    'start_date'        => $formData['start_date'],
+                    'end_date'          => $formData['end_date'],
+                    'early_reg_end'     => $formData['early_reg_end'],
+                    'early_ef'          => $formData['early_ef'],
+                    'full_ef'           => $formData['full_ef'],
+                    'junior_discount'   => $formData['junior_discount'],
+                    'completed'         => $formData['completed'],
+                    'details'           => $formData['details'],
+                    'crosstable'        => $formData['crosstable'],
+                    'pairings'          => $formData['pairings'],
+                    'report'            => $formData['report']
                 ),
                 array(
-                    'name' => 'string|min:2|required',
-                    'start_date' => 'date|required',
-                    'end_date' => 'date|required',
-                    'early_reg_end' => 'date|required',
-                    'completed' => 'boolean|required',
-                    'early_reg_end' => 'date|nullable',
-                    'details' => 'string|required',
-                    'crosstable' => 'string',
-                    'pairings' => 'string',
-                    'report' => 'string'
-
+                    'name'                      => 'string|min:2|required',
+                    'start_date'                => 'date|required',
+                    'end_date'                  => 'date|required',
+                    'early_reg_end'             => 'date|required',
+                    'completed'                 => 'boolean|required',
+                    'early_reg_end'             => 'date|nullable',
+                    'early_ef'                  => 'numeric|nullable',
+                    'full_ef'                   => 'numeric|required',
+                    'junior_discount'           => 'numeric|nullable',
+                    'details'                   => 'string|required',
+                    'crosstable'                => 'string',
+                    'pairings'                  => 'string',
+                    'report'                    => 'string'
                 )
             );
             // Check to see if the validator passes
@@ -103,6 +108,9 @@ class TournamentController extends Controller
             $tournament->start_date = $formData['start_date'];
             $tournament->end_date = $formData['end_date'];
             $tournament->early_reg_end = $formData['early_reg_end'];
+            $tournament->early_ef = $formData['early_ef'];
+            $tournament->full_ef = $formData['full_ef'];
+            $tournament->junior_discount = $formData['junior_discount'];
             $tournament->completed = $formData['completed'];
             $tournament->details = $formData['details'];
             $tournament->crosstable = $formData['crosstable'];

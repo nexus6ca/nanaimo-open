@@ -24,6 +24,18 @@
                                 <input class="form-control" name="early_reg_end" type="date" value="{{$tournament->early_reg_end}}" required>
                             </div>
                             <div class="form-group">
+                                <label for="early_reg_end">Early Bird Entry Fee</label>
+                                <input class="form-control" name="early_ef" type="number" value="{{$tournament->early_ef}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="early_reg_end">Full Entry Fee</label>
+                                <input class="form-control" name="full_ef" type="number" value="{{$tournament->full_ef}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="early_reg_end">Junior Discount</label>
+                                <input class="form-control" name="junior_discount" type="number" value="{{$tournament->junior_discount}}" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="completed" >Completed</label>
                                 <input name="completed" type="radio" value="1" <?=($tournament->completed)?'checked=checked' : ''?>>Yes</input>
                                 <input name="completed" type="radio" value="0" <?=(!$tournament->completed)?'checked=checked' : ''?>>No</input>

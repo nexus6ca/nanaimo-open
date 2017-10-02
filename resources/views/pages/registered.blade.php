@@ -5,7 +5,7 @@
             <div class="col-md-12 col-md-offset-0">
                 <div class="panel panel-default">
                     <div class="panel-heading">Registered Players for {{$tournament->name}}</div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="overflow-x:auto;">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -58,9 +58,10 @@
                                 </p>
                             </div>
                             @if(Auth::user()->age == 'Adult')
-                                <a class="btn btn-primary" href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ? '40' : '50')?>">Pay using PayPal</a>
+                                <a class="btn btn-primary" href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ? $tournament->early_ef : $tournament->full_ef)?>">Pay using PayPal</a>
                             @elseif(Auth::user()->age == 'Junior' || Auth::user()->age == 'VIU Student')
-                                <a class="btn btn-primary" href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ? '25' : '30')?>">Pay using PayPal</a>
+                                <a class="btn btn-primary" href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ?
+                                    $tournament->early_ef - $tournament->junior_discount : $tournament->full_ef - $tournament->junior_discount )?>">Pay using PayPal</a>
                             @endif
                         @endif
                      </div>
