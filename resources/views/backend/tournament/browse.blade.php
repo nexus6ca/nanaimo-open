@@ -25,10 +25,10 @@
                                 <tr>
                                     <td>{{$tournament->name}}</td>
                                     <td>{{$tournament->updated_at}}</td>
+                                    <td><?=($tournament->completed)?'Yes' : 'No'?></td>
                                     <td>{{$tournament->start_date}}</td>
                                     <td>{{$tournament->end_date}}</td>
-                                    <td><?=($tournament->early_reg_end < date("Y/m/d"))?'Yes':'No'?></td>
-                                    <td><?=($tournament->completed)?'Yes' : 'No'?></td>
+                                    <td><?=($tournament->early_reg_end > date("Y-m-d") ? 'Yes' : 'No')?></td>
                                     <td><a class="btn btn-primary" href="/backend/tournament/edit/{{$tournament->id}}">Edit</a></td>
                                     <td><a class="btn btn-primary delete" id="delete"
                                            href="/backend/tournament/delete/{{$tournament->id}}">Delete</a></td>
