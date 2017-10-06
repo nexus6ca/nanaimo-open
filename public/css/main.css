@@ -34,6 +34,11 @@ body {
     background-color: grey;
     color: white;
 }
+
+.club-header {
+    max-width: 100%;
+}
+
 /*----- Tabs -----*/
  .tabs {
      width:100%;

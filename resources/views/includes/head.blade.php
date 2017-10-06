@@ -15,7 +15,7 @@
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=oh5ws399rzhqudty6ewt08gbx60u3eyz8q29xcmarl0o31gi"></script>
 <script>tinymce.init({
         selector:'textarea',
-        plugins: "hr code anchor autoresize table",
+        plugins: "hr code anchor autoresize table image",
 
 });
 </script>

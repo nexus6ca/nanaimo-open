@@ -29,9 +29,6 @@
                         <div class="well well-sm"><label>Number of Pages Created</label> {{$pages->count()}}</div>
                         <div class="well well-sm"><label>Number of Tournaments Created</label> {{$tournaments->count()}}</div>
                         <div class="well well-sm"><label>Number of User Created</label> {{$users->count()}}</div>
-{{--                    <p><label>Page assigned to HOME</label> {{$site->home}}</p>
-                        <p><label>Page assigned to NEXT TOURNAMENT</label> {{$site->next_tournament}}</p>
-                        <p><label>Page assigned to PREVIOUS TOURNAMENT</label> {{$site->previous_tournament}}</p>--}}
                     </div>
                     </div>
                 </div>

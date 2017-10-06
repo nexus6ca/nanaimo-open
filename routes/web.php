@@ -20,6 +20,7 @@ Route::get('/next_tournament', 'FrontendController@next_tournament');
 Route::get('/previous_tournament', 'FrontendController@previous_tournament');
 Route::get('/gallery', 'FrontendController@gallery');
 Route::get('/registered/{id}', 'FrontendController@registered');
+Route::get('/nanaimo_chessclub', 'FrontendController@chessclub');
 
 // Backend Routes
 

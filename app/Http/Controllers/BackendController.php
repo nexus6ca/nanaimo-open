@@ -63,7 +63,6 @@ class BackendController extends Controller
 
             $site->home = $data['home_page'];
             $site->next_tournament = $data['next_tournament_page'];
-            $site->previous_tournament = $data['previous_tournament_page'];
             $site->save();
 
         } catch (Exception $e) {

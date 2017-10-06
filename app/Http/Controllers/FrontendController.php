@@ -119,4 +119,16 @@ class FrontendController extends Controller
         }
 
     }
+
+    /**
+     * Chessclub Controller
+     *
+     * Displays Chessclub page set in backend.
+     */
+
+    public function chessClub() {
+        $chessClub = Page::where('title', 'Nanaimo Chess Club')->firstOrFail();
+
+        return view('/pages/chessclub')->with('chessclub', $chessClub);
+    }
 }
