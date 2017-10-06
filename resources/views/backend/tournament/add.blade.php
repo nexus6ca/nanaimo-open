@@ -66,6 +66,24 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="early_reg_end" class="col-md-4 control-label">Early Bird Entry Fee</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" name="early_ef" type="number" value="{{old('early_ef')}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="early_reg_end" class="col-md-4 control-label">Full Entry Fee</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" name="full_ef" type="number" value="{{old('full_ef')}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="early_reg_end" class="col-md-4 control-label">Junior Discount</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" name="junior_discount" type="number" value="{{old('ju')}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="page_data">Page Data</label>
                                 <textarea class="form-control" name="details" rows="5"></textarea>
                             </div>

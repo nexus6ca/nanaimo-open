@@ -12,20 +12,6 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -39,28 +25,15 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
-                            <label for="address2" class="col-md-4 control-label">Address Line 1</label>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="address1" type="text" class="form-control" name="address1" value="{{ old('address1') }}" required>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('address1'))
+                                @if ($errors->has('name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('address1') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
-                            <label for="address2" class="col-md-4 control-label">Address Line 2</label>
-
-                            <div class="col-md-6">
-                                <input id="address2" type="text" class="form-control" name="address2" value="{{ old('address1') }}">
-
-                                @if ($errors->has('address2'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address2') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -94,19 +67,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('postal') ? ' has-error' : '' }}">
-                            <label for="postal" class="col-md-4 control-label">Postal Code</label>
-
-                            <div class="col-md-6">
-                                <input id="postal" type="string" class="form-control" name="postal" value="{{ old('postal') }}" required>
-
-                                @if ($errors->has('postal'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('postal') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('cfc_number') ? ' has-error' : '' }}">
                             <label for="cfc_number" class="col-md-4 control-label">CFC Number</label>
 
@@ -120,26 +80,12 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
-                            <label for="rating" class="col-md-4 control-label">Rating</label>
-
-                            <div class="col-md-6">
-                                <input id="rating" type="number" class="form-control" name="rating" value="{{ old('rating') }}" min="0" max="2900" required>
-
-                                @if ($errors->has('rating'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('rating') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
                             <label for="age" class="col-md-4 control-label">Age Group</label>
                             <div class="col-md-6">
                                 <select id="age" class="form-control" name="age" required>
                                     <option value="Adult" <?=(old('age') == 'Adult')? 'selected' : ''?>>Adult</option>
                                     <option value="Junior" <?=(old('age') == 'Junior')? 'selected' : ''?>>Junior</option>
-                                    <option value="VIU Student" <?=(old('age') == 'VIU Student')? 'selected' : ''?>>VIU Student</option>
                                 </select>
                                 @if ($errors->has('age'))
                                     <span class="help-block">

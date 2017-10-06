@@ -73,9 +73,9 @@ class TournamentController extends Controller
                     'junior_discount'   => $formData['junior_discount'],
                     'completed'         => $formData['completed'],
                     'details'           => $formData['details'],
-                    'crosstable'        => $formData['crosstable'],
-                    'pairings'          => $formData['pairings'],
-                    'report'            => $formData['report']
+                    'crosstable'        => (isset($formData['crosstable']) ? $formData['crosstable'] : ''),
+                    'pairings'          => (isset($formData['pairings']) ? $formData['pairings'] : ''),
+                    'report'            => (isset($formData['report']) ? $formData['report'] : '')
                 ),
                 array(
                     'name'                      => 'string|min:2|required',
@@ -88,9 +88,9 @@ class TournamentController extends Controller
                     'full_ef'                   => 'numeric|required',
                     'junior_discount'           => 'numeric|nullable',
                     'details'                   => 'string|required',
-                    'crosstable'                => 'string',
-                    'pairings'                  => 'string',
-                    'report'                    => 'string'
+                    'crosstable'                => 'string|nullable',
+                    'pairings'                  => 'string|nullable',
+                    'report'                    => 'string|nullable'
                 )
             );
             // Check to see if the validator passes
@@ -113,9 +113,9 @@ class TournamentController extends Controller
             $tournament->junior_discount = $formData['junior_discount'];
             $tournament->completed = $formData['completed'];
             $tournament->details = $formData['details'];
-            $tournament->crosstable = $formData['crosstable'];
-            $tournament->pairings = $formData['pairings'];
-            $tournament->report = $formData['report'];
+            if(isset($formData['crosstable'])) $tournament->crosstable = $formData['crosstable'];
+            if(isset($formData['pairings'])) $tournament->pairings = $formData['pairings'];
+            if(isset($formData['report'])) $tournament->report = $formData['report'];
 
             $tournament->save();
 
@@ -202,24 +202,9 @@ class TournamentController extends Controller
             $tournament = Tournament::find($tournament_id);
             $player = Auth::user();
 
-            $rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
-            $ratingList = array();
-
-            foreach($rows as $row) {
-                $ratingList[] = str_getcsv($row);
-            }
-
-            foreach ($ratingList as $member) {
-                if($member[0] == $player->cfc_number) {
-                    $player->rating = $member[6];
-                    $date = date_create_from_format('d/m/Y', $member[1]);
-
-                    $player->cfc_expiry_date = $date->format('Y-m-d');
-                    $player->save();
-                }
-            }
-
-
+            $rating = new RatingController();
+            $player->rating = $rating->getRating($player->cfc_number);
+            $player->expiry_date = $rating->getExpiry($player->cfc_number);
 
         } catch (Exception $e) {
             return view('/errors/error')->with('page', 'Registration Form Page')->with('messages', $e->getMessage());

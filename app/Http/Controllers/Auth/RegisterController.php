@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Http\Controllers\RatingController;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -48,18 +49,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name'          => 'required|max:255',
-            'email'         => 'required|email|max:255|unique:users',
-            'address1'      => 'required|max:255',
-            'address2'      => 'max:255',
-            'city'          => 'required|max:255',
-            'prov'          => 'required|max:3',
-            'postal'        => 'required|max:7',
-            'password'      => 'required|min:6|confirmed',
-            'cfc_number'    => 'integer',
-            'cfc_expiry_date' => 'date',
-            'rating'        => 'integer',
-            'age'           => 'required'
+            'name'              => 'required|max:255',
+            'email'             => 'required|email|max:255|unique:users',
+            'city'              => 'required|max:255',
+            'prov'              => 'required|max:3',
+            'password'          => 'required|min:6|confirmed',
+            'cfc_number'        => 'integer',
+            'cfc_expiry_date'   => 'date',
+            'age'               => 'required'
         ]);
     }
 
@@ -71,14 +68,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Updating user rating.
+        $data['rating'] = RatingController::getRating($data['cfc_number']);
+
         return User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
-            'address1'      => $data['address1'],
-            'address2'      => $data['address2'],
             'city'          => $data['city'],
             'prov'          => $data['prov'],
-            'postal'        => $data['postal'],
             'password'      => bcrypt($data['password']),
             'cfc_number'    => $data['cfc_number'],
             'rating'        => $data['rating'],

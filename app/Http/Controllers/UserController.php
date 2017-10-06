@@ -47,29 +47,22 @@ class UserController extends Controller
                     array(
                         'name'          => $data['name'],
                         'email'         => $data['email'],
-                        'address1'      => $data['address1'],
-                        'address2'      => $data['address2'],
                         'city'          => $data['city'],
                         'prov'          => $data['prov'],
-                        'postal'        => $data['postal'],
                         'cfc_number'    => $data['cfc_number'],
-                        'rating'        => $data['rating'],
                         'age'           => $data['age']
 
                     ),
                     array(
                         'name'          => 'required|max:255',
                         'email'         => 'required|email|max:255',
-                        'address1'      => 'required|max:255',
-                        'address2'      => 'max:255',
                         'city'          => 'required|max:255',
                         'prov'          => 'required|max:3',
-                        'postal'        => 'required|max:7',
                         'cfc_number'    => 'integer',
-                        'rating'        => 'integer',
                         'age'           => 'required'
                     )
                 );
+
                 // Check to see if the validator passes
                 if (!$validator->passes()) {
                     throw new Exception ($validator->errors());
@@ -77,20 +70,18 @@ class UserController extends Controller
 
                 $user = User::find($id);
 
-
+                // Updating user rating.
+                $rating = new RatingController();
+                $user->rating = $rating->getRating($user->cfc_number);
+                $user->cfc_expiry_date = $rating->getExpiry($user->cfc_number)->format('Y-m-d');
                 $user->name = $data['name'];
                 $user->email = $data['email'];
-                $user->address1 = $data['address1'];
-                $user->address2 = $data['address2'];
                 $user->city = $data['city'];
                 $user->prov = $data['prov'];
-                $user->postal = $data['postal'];
                 $user->cfc_number = $data['cfc_number'];
-                $user->rating = $data['rating'];
                 $user->age = $data['age'];
                 if(Auth::user()->isAdmin) {
                     $user->isAdmin = $data['isAdmin'];
-                    $user->cfc_expiry_date = $data['cfc_expiry_date'];
                 }
                 $user->save();
 
