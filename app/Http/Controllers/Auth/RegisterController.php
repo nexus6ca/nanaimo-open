@@ -69,7 +69,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // Updating user rating.
-        $data['rating'] = RatingController::getRating($data['cfc_number']);
+        $rating = new RatingController();
+        $data['rating'] = $rating->getRating($data['cfc_number']);
+        $data['cfc_expiry_date'] = $rating->getExpiry($data['cfc_number'])->format('Y-m-d');
 
         return User::create([
             'name'          => $data['name'],
