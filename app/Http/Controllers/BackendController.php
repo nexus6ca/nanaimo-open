@@ -12,6 +12,7 @@ use App\Page;
 use App\User;
 use App\Tournament;
 use App\SitePage;
+use App\Classes;
 
 class BackendController extends Controller
 {
@@ -60,14 +61,25 @@ class BackendController extends Controller
             $data = Input::all();
 
             $site = (SitePage::count() > 0) ? SitePage::find(1) : new SitePage;
-
+            $site->site_name = $data['site_name'];
             $site->home = $data['home_page'];
             $site->next_tournament = $data['next_tournament_page'];
             $site->club = $data['chess_club_page'];
-           // $site->tinymce_key = $data['tinymce_key'];
-            //$site->site_name = $data['site_name'];
-            //$site->google_analytics_tag = $data['google_tag'];
+            $site->tinymce_key = $data['tinymce_key'];
+            $site->google_analytics_tag = $data['google_tag'];
             $site->save();
+
+            $conf = [
+                'constants.SITE_TITLE' => $data['site_name'],
+                'constants.GOOGLE_ANALYTICS_KEY' => $data['google_tag'],
+                'constants.TINY_MCE_KEY' => $data['tinymce_key']
+            ];
+            //$conf = ['_SITE_EMAIL' => $data['site_email']];
+
+            config($conf);
+            $fp = fopen(base_path() .'/config/constants.php' , 'w');
+            fwrite($fp, '<?php return ' . var_export(config('constants'), true) . ';');
+            fclose($fp);
 
         } catch (Exception $e) {
             $messages[] = $e->getMessage();

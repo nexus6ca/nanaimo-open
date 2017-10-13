@@ -1,5 +1,6 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108085151-1"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id={{config('constants.GOOGLE_ANALYTICS_KEY')}}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -9,7 +10,7 @@
 
     gtag('js', new Date());
 
-    gtag('config', 'UA-108085151-1');
+    gtag('config', '{{config('constants.GOOGLE_ANALYTICS_KEY')}}');
 </script>
 
 <meta charset="utf-8">
@@ -33,11 +34,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=oh5ws399rzhqudty6ewt08gbx60u3eyz8q29xcmarl0o31gi"></script>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{config('constants.TINY_MCE_KEY')}}"></script>
 <script>tinymce.init({
         selector: 'textarea',
         plugins: "hr code anchor autoresize table image",
-
     });
 </script>
 <script type="text/javascript" src="{{ URL::asset('/js/main.js') }}"></script>

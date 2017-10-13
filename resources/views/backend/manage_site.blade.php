@@ -39,11 +39,11 @@
                         </div>
                         <div class="form-group-sm">
                             <label for title>Google Analytics Tag</label>
-                            <input style="width: 100%" style="width: 100%" name="google_tag" value="<?=$site->google_analytics_tag?>">
+                            <input style="width: 100%" style="width: 100%" name="google_tag" value="<?=config('constants.GOOGLE_ANALYTICS_KEY')?>">
                             <label for title>Tiny MCE Key</label>
-                            <input style="width: 100%" name="tinymce_key" value="<?=$site->tinymce_key?>">
+                            <input style="width: 100%" name="tinymce_key" value="{{config('constants.TINY_MCE_KEY')}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-sm">
                             <input type="submit" value="Save Page" class="button">
                         </div>
                     </form>
