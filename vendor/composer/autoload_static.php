@@ -355,8 +355,9 @@ class ComposerStaticInitec5719c72550fb67675c66e3f796f8e9
     );
 
     public static $classMap = array (
+        'AddChessclubPage' => __DIR__ . '/../..' . '/database/migrations/2017_10_13_064224_add_chessclub_page.php',
+        'AddSitevariables' => __DIR__ . '/../..' . '/database/migrations/2017_10_13_075537_add_sitevariables.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreateTournamentPhotosTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_13_054352_create_tournament_photos_table.php',
         'CreateTournamentUserPivotTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_26_073322_create_tournament_user_pivot_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

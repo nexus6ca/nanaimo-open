@@ -6,8 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddChessclubPage' => $baseDir . '/database/migrations/2017_10_13_064224_add_chessclub_page.php',
+    'AddSitevariables' => $baseDir . '/database/migrations/2017_10_13_075537_add_sitevariables.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-    'CreateTournamentPhotosTable' => $baseDir . '/database/migrations/2017_10_13_054352_create_tournament_photos_table.php',
     'CreateTournamentUserPivotTable' => $baseDir . '/database/migrations/2016_12_26_073322_create_tournament_user_pivot_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

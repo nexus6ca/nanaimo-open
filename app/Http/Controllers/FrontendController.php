@@ -16,6 +16,7 @@ class FrontendController extends Controller
      * Displays the Page set as home.
      *
      * @return \Illuminate\View\View
+     * @todo This really should be Club Blog - Home is the Club information page.
      */
     public function home()
     {
@@ -37,6 +38,9 @@ class FrontendController extends Controller
 
     /**
      * Displays the Page set as next_tournmaent
+     *
+     * @todo Create multiple tournaments that can be active at the same time. IE Junior event, Decemeber Tournament,
+     * @todo March Tournament.
      */
     public function next_tournament()
     {
@@ -56,6 +60,11 @@ class FrontendController extends Controller
         }
     }
 
+    /**
+     * Gets all the image files.
+     *
+     * @todo implement file uploader and create proper storage.
+     */
     public function gallery()
     {
         try {
@@ -71,26 +80,26 @@ class FrontendController extends Controller
         return view('/pages/gallery')->with('files', $files)->with('active', 'gallery');
     }
 
+    /**
+     * Generates list of all completed tournaments.
+     */
     public function previous_tournament()
     {
-        try {
-            $site = SitePage::find(1);
-        } catch (Exception $e) {
-            $errors = $e->getMessage();
+        $tournaments = Tournament::where('completed', 1)->get();
 
-            return view('/errors/error')->with('page', 'Previous Tournament Page')->with('messages', $errors);
-        }
-
-        $tournaments = Tournament::all();
-
-        if (!empty($site->previous_tournament)) {
-            $tournament = Tournament::find($site->previous_tournament);
+        if (!empty($tournaments)) {
             return view('/pages/prev_tournaments')->with('tournaments', $tournaments);
         } else {
             return view('/pages/default')->with('active', 'home');
         }
     }
 
+    /**
+     * Shows which players are registered in a specific tournament.
+     *
+     * @param $tournament_id
+     * @return $this
+     */
     public function registered($tournament_id)
     {
         try {
@@ -127,8 +136,20 @@ class FrontendController extends Controller
      */
 
     public function chessClub() {
-        $chessClub = Page::where('title', 'Nanaimo Chess Club')->firstOrFail();
+        try {
+            $site = SitePage::find(1);
+        } catch (Exception $e) {
+            $errors = $e->getMessage();
+            return view('/errors/error')->with('page', 'Next Tournament Page')->with('messages', $errors);
+        }
 
-        return view('/pages/chessclub')->with('chessclub', $chessClub);
+        if (!empty($site->club)) {
+            $chessClub = Page::find($site->club);
+
+            return view('/pages/chessclub')->with('chessclub', $chessClub);
+        } else {
+            return view('/pages/default')->with('active', 'home');
+        }
+
     }
 }

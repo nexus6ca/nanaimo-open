@@ -30,7 +30,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/backend/home">Backend</a>
+            <a class="navbar-brand" href="/backend/home">Site Controls</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/backend/pages/browse">Manage Pages</a></li>
