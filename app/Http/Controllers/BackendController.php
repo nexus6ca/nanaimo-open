@@ -64,9 +64,9 @@ class BackendController extends Controller
             $site->home = $data['home_page'];
             $site->next_tournament = $data['next_tournament_page'];
             $site->club = $data['chess_club_page'];
-            $site->tinymce_key = $data['tinymce_key'];
-            $site->site_name = $data['site_name'];
-            $site->google_analytics_tag = $data['google_tag'];
+           // $site->tinymce_key = $data['tinymce_key'];
+            //$site->site_name = $data['site_name'];
+            //$site->google_analytics_tag = $data['google_tag'];
             $site->save();
 
         } catch (Exception $e) {
