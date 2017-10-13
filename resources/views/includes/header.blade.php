@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="header_text"><h1>The Nanaimo Open Chess Tournament</h1></div>
+    <div class="header_text"><h1 style="font-size:3vw">The Nanaimo Open Chess Tournament</h1></div>
 </div>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">

@@ -72,7 +72,9 @@
 
                             <div class="col-md-6">
                                 <input id="cfc_number" type="number" class="form-control" name="cfc_number" value="{{ old('cfc_number') }}" min="0" required>
-
+                                <div class="well">If your are a first time CFC player, enter 0. If you have a membership number but
+                                    do not know it you can go to the <a href="http://chess.ca">CFC Website</a> and find
+                                    it there by using the search function on the bottom right of the page.</div>
                                 @if ($errors->has('cfc_number'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('cfc_number') }}</strong>
