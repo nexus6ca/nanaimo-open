@@ -110,20 +110,28 @@ class FrontendController extends Controller
             $players = array();
             $registered = false;
             $rating_list = new RatingList();
-            foreach ($players_pivot as $pivot) {
-                if ($pivot->id == Auth::id()) {
+
+            foreach ($players_pivot as $player_pivot) {
+                if ($player_pivot->id == Auth::id()) {
                     $registered = 'true';
                 }
-                $player['player'] = User::find($pivot->id);
-                $player['byes'] = $pivot->pivot->byes;
-                $player['paid'] = $pivot->pivot->paid;
-                $player['registration_date'] = $pivot->pivot->created_at;
+                $player['player'] = User::find($player_pivot->id);
+                $player['byes'] = $player_pivot->pivot->byes;
+                $player['paid'] = $player_pivot->pivot->paid;
+                $player['registration_date'] = $player_pivot->pivot->created_at;
                 if($player['player']->cfc_number > 0) {
                     $player['player']->rating = $rating_list->getRating($player['player']->cfc_number);
-                    $player['player']->cfc_expiry = $rating_list->getExpiry($player['player']->cfc_numbercfc_number);
+                    $player['player']->cfc_expiry = $rating_list->getExpiry($player['player']->cfc_number);
                 }
                 $players[] = $player;
+
+                // Sort list by rating.
+
             }
+
+            usort($players, function ($a, $b) {
+                return $b['player']->rating <=> $a['player']->rating;
+            });
 
             return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);
 
