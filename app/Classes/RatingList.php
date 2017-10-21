@@ -28,22 +28,24 @@ class RatingList {
     private $rows;
     private $ratingList = array();
 
+    /**
+     * RatingList constructor.
+     *
+     * Input csv file from the CFC. Process the rating removing all entries that do not have 12 values.
+     *
+     */
     public function __construct()
     {
         $this->ratingList = array_map('str_getcsv', file('http://chess.ca/sites/default/files/tdlist.txt'));
 
         $header = array_shift($this->ratingList);
 
-        array_walk($this->ratingList, function(&$row, $key, $header){
-            if(count($header) == 12 && count($row) == 12)
-                $row = array_combine($header, $row);
-        }, $header);
-
         foreach ($this->ratingList as $key => $list) {
-            if(count($list) != 12) {
+            if (count($list) != 12) {
                 unset($this->ratingList[$key]);
+            } else {
+                $this->ratingList[$key] = array_combine($header, $list);
             }
-
         }
     }
 
