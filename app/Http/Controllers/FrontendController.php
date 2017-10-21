@@ -130,7 +130,7 @@ class FrontendController extends Controller
             }
 
             usort($players, function ($a, $b) {
-                return $b['player']->rating <=> $a['player']->rating;
+                return $b['player']->rating - $a['player']->rating;
             });
 
             return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);

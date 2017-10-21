@@ -94,7 +94,7 @@ class RatingList {
         $prov_players = array();
         $rating_list = $this->ratingList;
         usort($rating_list, function ($a, $b) {
-                return $b['Rating'] <=> $a['Rating'];
+                return $b['Rating'] - $a['Rating'];
         });
 
         foreach($rating_list as $player) {
