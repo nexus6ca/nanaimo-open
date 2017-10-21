@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Http\Controllers\RatingController;
+use App\Classes\RatingList;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -69,7 +69,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // Updating user rating.
-        $rating = new RatingController();
+        $rating = new RatingList();
         $data['rating'] = $rating->getRating($data['cfc_number']);
         $data['cfc_expiry_date'] = $rating->getExpiry($data['cfc_number'])->format('Y-m-d');
 

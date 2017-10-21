@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Classes;
 
 use App\Tournament;
 use App\User;
@@ -8,13 +8,22 @@ use App\Page;
 use Exception;
 
 /**
- * Class RatingController
+ * Class RatingList
+ *
+ * Determine Rating and Expiry date based on CFC Number.
+ *
  * @package App\Http\Controllers
  *
- * Class for static function to determine rating.
+ * Useage:
+ *
+ * $rating = new RatingList;
+ *
+ * $player_rating = $rating->getRating($cfc_number) - returns the rating
+ * $player_expiry = $rating->getExpiry($cfc_number)
+ *
  */
 
-class RatingController {
+class RatingList {
 
     private $rows;
     private $ratingList = array();
@@ -28,6 +37,11 @@ class RatingController {
         }
     }
 
+    /**
+     * Determine CFC Rating from rating list.
+     * @param $cfc_number
+     * @return int
+     */
     public function getRating($cfc_number)
     {
         if (isset($cfc_number)) {
@@ -42,6 +56,12 @@ class RatingController {
         return 0;
     }
 
+    /**
+     * Determine Expiry Date
+     *
+     * @param $cfc_number
+     * @return \DateTime|false|null
+     */
     public function getExpiry($cfc_number) {
         if (isset($cfc_number)) {
 

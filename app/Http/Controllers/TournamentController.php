@@ -23,7 +23,11 @@ use Illuminate\Http\Request;
  */
 class TournamentController extends Controller
 {
-    // Create a new tournament
+    /**
+     * Add a tournament.
+     *
+     * @return $this
+     */
     public function add()
     {
         try {
@@ -40,6 +44,11 @@ class TournamentController extends Controller
         return view('/backend/tournament/add');
     }
 
+    /**
+     * Edit a specific tournament.
+     * @param $id
+     * @return $this
+     */
     public function edit($id)
     {
         try {
@@ -53,7 +62,12 @@ class TournamentController extends Controller
         return view('/backend/tournament/edit')->with('tournament', $tournament);
     }
 
-
+    /**
+     * Save a tournament.
+     *
+     * @param null $id
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function save($id = null)
     {
         try {
@@ -127,6 +141,11 @@ class TournamentController extends Controller
         return redirect('/backend/tournament/browse');
     }
 
+    /**
+     * Returns a list of all the tournaments.
+     *
+     * @return $this
+     */
     public function browse()
     {
         try {
@@ -143,6 +162,12 @@ class TournamentController extends Controller
         return view('/backend/tournament/browse')->with('tournaments', $tournaments);
     }
 
+    /**
+     * Delete a tournament. This will remove the entire record.
+     *
+     * @param $id
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function delete($id)
     {
         try {
@@ -160,6 +185,12 @@ class TournamentController extends Controller
         return redirect('/backend/tournament/browse');
     }
 
+    /**
+     * Register a player to a specific tournament.
+     *
+     * @param $tournament_id
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function register($tournament_id)
     {
 
@@ -202,7 +233,7 @@ class TournamentController extends Controller
             $tournament = Tournament::find($tournament_id);
             $player = Auth::user();
 
-            $rating = new RatingController();
+            $rating = new \App\Classes\RatingList();
             $player->rating = $rating->getRating($player->cfc_number);
             $player->expiry_date = $rating->getExpiry($player->cfc_number);
 

@@ -28,6 +28,6 @@ class User extends Authenticatable
     ];
 
     public function tournaments() {
-        return $this->belongsToMany('App\Tournament')->withPivot(['byes', 'paid'])->withTimestamps();
+        return $this->belongsToMany('App\Tournament', 'tournament_user')->withPivot(['byes', 'paid', 'created_at'])->withTimestamps();
     }
 }

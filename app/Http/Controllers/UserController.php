@@ -71,7 +71,7 @@ class UserController extends Controller
                 $user = User::find($id);
 
                 // Updating user rating.
-                $rating = new RatingController();
+                $rating = new RatingList();
                 $user->rating = $rating->getRating($user->cfc_number);
                 $user->cfc_expiry_date = $rating->getExpiry($user->cfc_number)->format('Y-m-d');
                 $user->name = $data['name'];

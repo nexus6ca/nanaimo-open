@@ -9,13 +9,12 @@
     }
 
     gtag('js', new Date());
-
     gtag('config', '{{config('constants.GOOGLE_ANALYTICS_KEY')}}');
 </script>
 
 <meta charset="utf-8">
-<meta name="description" content="">
-<meta name="author" content="Scotch">
+<meta name="description" content="Nanaimo Open Chess Tournament Page">
+<meta name="author" content="Jason Williamson">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nanaimo Open Chess Tournament</title>

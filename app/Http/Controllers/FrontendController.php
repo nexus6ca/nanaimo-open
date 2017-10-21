@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\RatingList;
 use App\Page;
 use App\Tournament;
 use App\SitePage;
@@ -106,16 +107,21 @@ class FrontendController extends Controller
             $tournament = Tournament::find($tournament_id);
             // Pivot finds the player (which is really a user)
             $players_pivot = $tournament->users()->get();
-
             $players = array();
             $registered = false;
+            $rating_list = new RatingList();
             foreach ($players_pivot as $pivot) {
                 if ($pivot->id == Auth::id()) {
                     $registered = 'true';
                 }
                 $player['player'] = User::find($pivot->id);
-                $player['byes'] = $pivot->byes;
-                $player['paid'] = $pivot->paid;
+                $player['byes'] = $pivot->pivot->byes;
+                $player['paid'] = $pivot->pivot->paid;
+                $player['registration_date'] = $pivot->pivot->created_at;
+                if($player['player']->cfc_number > 0) {
+                    $player['player']->rating = $rating_list->getRating($player['player']->cfc_number);
+                    $player['player']->cfc_expiry = $rating_list->getExpiry($player['player']->cfc_numbercfc_number);
+                }
                 $players[] = $player;
             }
 

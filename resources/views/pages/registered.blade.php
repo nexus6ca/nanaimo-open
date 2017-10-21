@@ -29,7 +29,7 @@
                                     <td>{{$p['player']->cfc_expiry_date}}</td>
                                     <td>{{$p['player']->rating}}</td>
                                     <td>{{$p['player']->prov}}</td>
-                                    <td>{{$p['player']->created_at}}</td>
+                                    <td>{{$p['registration_date']}}</td>
                                     <td>
                                         @if(Auth::id() == $p['player']->id)
                                             <a class="btn btn-primary" href="/tournament/withdraw/{{$tournament->id}}">Withdraw from this tournament</a>
