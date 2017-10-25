@@ -10,6 +10,7 @@ use App\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Cache;
 
 class FrontendController extends Controller
 {
@@ -109,7 +110,13 @@ class FrontendController extends Controller
             $players_pivot = $tournament->users()->get();
             $players = array();
             $registered = false;
-            $rating_list = new RatingList();
+            if(Cache::has('ratingList')) {
+                $rating_list = new RatingList();
+
+                Cache::put('ratingList', $rating_list, 24*60);
+            }
+
+            $rating_list = Cache::get('ratingList');
 
             foreach ($players_pivot as $player_pivot) {
                 if ($player_pivot->id == Auth::id()) {
