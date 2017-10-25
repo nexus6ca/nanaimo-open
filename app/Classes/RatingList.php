@@ -37,7 +37,7 @@ class RatingList
      */
     public function __construct()
     {
-        if (!Cache::has('ratingList')) {
+        if (!Cache::has('ratingList') || true) {
             $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
             $header = str_getcsv(array_shift($this->rows));
             ini_set('memory_limit', '-1');
