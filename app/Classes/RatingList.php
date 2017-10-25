@@ -38,9 +38,9 @@ class RatingList
     public function __construct()
     {
         if (!Cache::has('ratingList') || true) {
+            ini_set('memory_limit', '-1');
             $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
             $header = str_getcsv(array_shift($this->rows));
-            ini_set('memory_limit', '-1');
                 foreach ($this->rows as $key => $list) {
                     $list = str_getcsv($list);
 
