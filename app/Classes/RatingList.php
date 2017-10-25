@@ -37,27 +37,25 @@ class RatingList
      */
     public function __construct()
     {
-        //$this->ratingList = array_map('str_getcsv', file('http://chess.ca/sites/default/files/tdlist.txt'));
-        $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
-        $header = str_getcsv(array_shift($this->rows));
-        ini_set('memory_limit', '-1');
         if (!Cache::has('ratingList')) {
-            foreach ($this->rows as $key => $list) {
-                $list = str_getcsv($list);
+            $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
+            $header = str_getcsv(array_shift($this->rows));
+            ini_set('memory_limit', '-1');
+                foreach ($this->rows as $key => $list) {
+                    $list = str_getcsv($list);
 
-                if (count($list) != 12) {
-                    continue;
-                } else {
-                    $this->ratingList[$key] = array_combine($header, $list);
+                    if (count($list) != 12) {
+                        continue;
+                    } else {
+                        $this->ratingList[$key] = array_combine($header, $list);
+                    }
+
                 }
 
-            }
-            Cache::put('ratingList', $this->ratingList, 60 * 24);
+                Cache::put('ratingList', $this->ratingList, 60 * 24);
         } else {
             $this->ratingList = Cache::get('ratingList');
         }
-
-
     }
 
     /**
