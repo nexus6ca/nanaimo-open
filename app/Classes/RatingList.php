@@ -22,8 +22,8 @@ use Exception;
  * @author Jason Williamson
  *
  */
-
-class RatingList {
+class RatingList
+{
 
     private $rows;
     private $ratingList = array();
@@ -36,17 +36,21 @@ class RatingList {
      */
     public function __construct()
     {
-        $this->ratingList = array_map('str_getcsv', file('http://chess.ca/sites/default/files/tdlist.txt'));
+        //$this->ratingList = array_map('str_getcsv', file('http://chess.ca/sites/default/files/tdlist.txt'));
+        $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
+        $header = str_getcsv(array_shift($this->rows));
 
-        $header = array_shift($this->ratingList);
-
-        foreach ($this->ratingList as $key => $list) {
+        foreach ($this->rows as $key => $list) {
+            $list = str_getcsv($list);
+            
             if (count($list) != 12) {
-                unset($this->ratingList[$key]);
+                continue;
             } else {
                 $this->ratingList[$key] = array_combine($header, $list);
             }
         }
+
+
     }
 
     /**
@@ -61,11 +65,11 @@ class RatingList {
             foreach ($this->ratingList as $member) {
                 if ($member['CFC#'] == $cfc_number) {
                     return $member['Rating'];
-    }
-    }
-    }
-    // Return 0 if we didn't find the membership number.
-    return 0;
+                }
+            }
+        }
+        // Return 0 if we didn't find the membership number.
+        return 0;
     }
 
     /**
@@ -74,7 +78,8 @@ class RatingList {
      * @param $cfc_number
      * @return \DateTime|false|null
      */
-    public function getExpiry($cfc_number) {
+    public function getExpiry($cfc_number)
+    {
         if (isset($cfc_number)) {
             foreach ($this->ratingList as $member) {
                 if ($member['CFC#'] == $cfc_number) {
@@ -91,21 +96,22 @@ class RatingList {
      *
      */
 
-    public function getT10byProv($prov) {
+    public function getT10byProv($prov)
+    {
         $count = 0;
         $prov_players = array();
         $rating_list = $this->ratingList;
         usort($rating_list, function ($a, $b) {
-                return $b['Rating'] - $a['Rating'];
+            return $b['Rating'] - $a['Rating'];
         });
 
-        foreach($rating_list as $player) {
-           if($count < 10) {
+        foreach ($rating_list as $player) {
+            if ($count < 10) {
                 if ($player['Prov'] == $prov && time() - strtotime($player['Expiry']) > 0) {
                     $prov_players[] = $player;
                     $count++;
                 }
-           }
+            }
         }
 
         return $prov_players;
