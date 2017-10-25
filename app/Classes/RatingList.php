@@ -40,8 +40,7 @@ class RatingList
         //$this->ratingList = array_map('str_getcsv', file('http://chess.ca/sites/default/files/tdlist.txt'));
         $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
         $header = str_getcsv(array_shift($this->rows));
-
-
+        ini_set('memory_limit', '-1');
         if (!Cache::has('ratingList') || true) {
             foreach ($this->rows as $key => $list) {
                 $list = str_getcsv($list);
@@ -69,6 +68,7 @@ class RatingList
     public function getRating($cfc_number)
     {
         if (isset($cfc_number)) {
+            ini_set('memory_limit', '-1');
             if(!Cache::has($cfc_number)) {
                 foreach ($this->ratingList as $member) {
                     $result = $member['Rating'];
@@ -92,6 +92,7 @@ class RatingList
     public function getExpiry($cfc_number)
     {
         if (isset($cfc_number)) {
+            ini_set('memory_limit', '-1');
             if(!Cache::has($cfc_number)) {
                 foreach ($this->ratingList as $member) {
                     if ($member['CFC#'] == $cfc_number) {
@@ -117,6 +118,7 @@ class RatingList
     public function getRatingAndExpiry($cfc_number)
     {
         if (isset($cfc_number)) {
+            ini_set('memory_limit', '-1');
             if(!Cache::has($cfc_number)) {
                 foreach ($this->ratingList as $member) {
                     if ($member['CFC#'] == $cfc_number) {
