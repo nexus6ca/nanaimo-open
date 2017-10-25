@@ -110,13 +110,13 @@ class FrontendController extends Controller
             $players_pivot = $tournament->users()->get();
             $players = array();
             $registered = false;
-            if(Cache::has('ratingList')) {
+        //    if(Cache::has('ratingList')) {
                 $rating_list = new RatingList();
 
-                Cache::put('ratingList', $rating_list, 24*60);
-            }
-
-            $rating_list = Cache::get('ratingList');
+       //         Cache::put('ratingList', $rating_list, 24*60);
+     //       }
+//
+     //       $rating_list = Cache::get('ratingList');
 
             foreach ($players_pivot as $player_pivot) {
                 if ($player_pivot->id == Auth::id()) {
