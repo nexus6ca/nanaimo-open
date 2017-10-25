@@ -120,8 +120,9 @@ class FrontendController extends Controller
                 $player['paid'] = $player_pivot->pivot->paid;
                 $player['registration_date'] = $player_pivot->pivot->created_at;
                 if($player['player']->cfc_number > 0) {
-                    $player['player']->rating = $rating_list->getRating($player['player']->cfc_number);
-                    $player['player']->cfc_expiry = $rating_list->getExpiry($player['player']->cfc_number);
+                    $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
+                    $player['player']->rating = $cfcInfo['rating'];
+                    $player['player']->cfc_expiry = $cfcInfo['expiry'];
                 }
                 $players[] = $player;
 

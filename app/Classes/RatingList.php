@@ -3,6 +3,7 @@
 namespace App\Classes;
 
 use Exception;
+use Cache;
 
 /**
  * Class RatingList
@@ -40,14 +41,21 @@ class RatingList
         $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
         $header = str_getcsv(array_shift($this->rows));
 
-        foreach ($this->rows as $key => $list) {
-            $list = str_getcsv($list);
-            
-            if (count($list) != 12) {
-                continue;
-            } else {
-                $this->ratingList[$key] = array_combine($header, $list);
+
+        if (!Cache::has('ratingList') || true) {
+            foreach ($this->rows as $key => $list) {
+                $list = str_getcsv($list);
+
+                if (count($list) != 12) {
+                    continue;
+                } else {
+                    $this->ratingList[$key] = array_combine($header, $list);
+                }
+
             }
+            Cache::put('ratingList', $this->ratingList, 60 * 24);
+        } else {
+            $this->ratingList = Cache::get('ratingList');
         }
 
 
@@ -61,12 +69,15 @@ class RatingList
     public function getRating($cfc_number)
     {
         if (isset($cfc_number)) {
-
-            foreach ($this->ratingList as $member) {
-                if ($member['CFC#'] == $cfc_number) {
-                    return $member['Rating'];
+            if(!Cache::has($cfc_number)) {
+                foreach ($this->ratingList as $member) {
+                    $result = $member['Rating'];
+                    Cache::put($cfc_number, $result, 60 * 24);
                 }
+            } else {
+                $result = Cache::get($cfc_number);
             }
+            return $result;
         }
         // Return 0 if we didn't find the membership number.
         return 0;
@@ -81,14 +92,47 @@ class RatingList
     public function getExpiry($cfc_number)
     {
         if (isset($cfc_number)) {
-            foreach ($this->ratingList as $member) {
-                if ($member['CFC#'] == $cfc_number) {
-                    return date_create_from_format('d/m/Y', $member['Expiry']);
+            if(!Cache::has($cfc_number)) {
+                foreach ($this->ratingList as $member) {
+                    if ($member['CFC#'] == $cfc_number) {
+                            $result = date_create_from_format('d/m/Y', $member['Expiry']);
+                            Cache::put($cfc_number, $result, 60 * 24);
+                    }
                 }
+            } else {
+                $result = Cache::get($cfc_number);
             }
+            return $result;
         }
         // Return 0 if we didn't find the membership number.
-        return null;
+        return 0;
+    }
+
+    /**
+     * Get both CFC rating and expiry.
+     *
+     * @param $cfc_number
+     * @return array
+     */
+    public function getRatingAndExpiry($cfc_number)
+    {
+        if (isset($cfc_number)) {
+            if(!Cache::has($cfc_number)) {
+                foreach ($this->ratingList as $member) {
+                    if ($member['CFC#'] == $cfc_number) {
+                        $result = array('rating' => $member['Rating'],
+                            'expiry' => date_create_from_format('d/m/Y', $member['Expiry']));
+                        Cache::put($cfc_number, $result, 60 * 24);
+                    }
+                }
+            } else {
+                $result = Cache::get($cfc_number);
+            }
+
+            return $result;
+        }
+        // Return 0 if we didn't find the membership number.
+        return 0;
     }
 
     /**
