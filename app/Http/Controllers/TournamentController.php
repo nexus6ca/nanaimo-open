@@ -257,6 +257,16 @@ class TournamentController extends Controller
         }
     }
 
+    public function remove_player($tournament_id, $player_id) {
+        try {
+            $tournament = Tournament::find($tournament_id);
+            $tournament->users()->detach($player_id);
+            return redirect('/registered/'.$tournament_id);
+        }catch (Exception $e) {
+            return view('/errors/error')->with('page', 'Get Player Details Page')->with('messages', $e->getMessage());
+        }
+    }
+
     public function update_player ($tournament_id, $player_id) {
         try {
             $tournament = Tournament::find($tournament_id);

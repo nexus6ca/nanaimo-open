@@ -102,3 +102,13 @@ li.active a, li.active a:hover {
 .tab.active {
     display:block;
 }
+
+#bye-list {
+    border: 2px;
+    border-style: solid;
+
+}
+
+.checkboxes {
+    margin-left:25px;
+}
