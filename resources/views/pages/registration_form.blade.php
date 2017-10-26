@@ -28,36 +28,38 @@
                                 {{ $player->cfc_expiry_date }}
                             </p>
                         </div>
-
-                        <form class="form-horizontal" role="form" method="POST" action="/tournament/register/<?=$tournament->id?>">
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <form class="form-horizontal" role="form" method="POST"
+                              action="/tournament/register/<?=$tournament->id?>">
                             {{ csrf_field() }}
-                            <div class="form-group">
+                            <div>
 
-                                <div>
-                                    <div class="well well-sm col-md-4">Select the rounds you wish to request a bye. 1/2 point
-                                        byes area available in rounds 1-4 and 0 point bye in round 5.
-                                    </div>
-                                    <div class="controls col-md-8" style="padding-left: 25px">
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="bye[]" value="1">Round 1 Sat. 10:00am
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="bye[]" value="2">Round 2 Sat. 2:30pm
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="bye[]" value="3">Round 3 Sat. 6:00pm
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="bye[]" value="4">Round 4 Sun. 10:00am
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="bye[]" value="5">Round 5 Sun. 2:30
-                                        </label>
-                                    </div>
+                                <div class="controls col-md-4" style="padding-left: 25px">
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="bye[]" value="1">Round 1 Sat. 10:00am
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="bye[]" value="2">Round 2 Sat. 2:30pm
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="bye[]" value="3">Round 3 Sat. 6:00pm
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="bye[]" value="4">Round 4 Sun. 10:00am
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="bye[]" value="5">Round 5 Sun. 2:30
+                                    </label>
+                                </div>
+                                <div class="well well-sm col-md-4">Select the rounds you wish to request a bye. 1/2
+                                    point
+                                    byes area available in rounds 1-4 and 0 point bye in round 5.
                                 </div>
                             </div>
 
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6">
                                 <input type="hidden" name="paid" value="0">
                                 <button type="submit" class="btn btn-primary">
                                     Register for this tournament.
@@ -66,7 +68,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
         </div>
+    </div>
     </div>
 @endsection

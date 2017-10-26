@@ -234,8 +234,10 @@ class TournamentController extends Controller
             $player = Auth::user();
 
             $rating = new \App\Classes\RatingList();
-            $player->rating = $rating->getRating($player->cfc_number);
-            $player->expiry_date = $rating->getExpiry($player->cfc_number);
+            $player_info = $rating->getRatingAndExpiry($player->cfc_number);
+            $player->rating = $player_info['rating'];
+            $player->cfc_expiry_date = $player_info['expiry']->format('Y-m-d');
+            $player->save();
 
         } catch (Exception $e) {
             return view('/errors/error')->with('page', 'Registration Form Page')->with('messages', $e->getMessage());

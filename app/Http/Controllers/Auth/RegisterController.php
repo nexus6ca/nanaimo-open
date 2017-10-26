@@ -68,11 +68,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // Updating user rating.
-        $rating = new RatingList();
-        $data['rating'] = $rating->getRating($data['cfc_number']);
-        $data['cfc_expiry_date'] = $rating->getExpiry($data['cfc_number'])->format('Y-m-d');
-
         return User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
@@ -80,8 +75,8 @@ class RegisterController extends Controller
             'prov'          => $data['prov'],
             'password'      => bcrypt($data['password']),
             'cfc_number'    => $data['cfc_number'],
-            'rating'        => $data['rating'],
-            'cfc_expiry_date' => $data['cfc_expiry_date'],
+            'rating'        => 0,
+            'cfc_expiry_date' => null,
             'age'           => $data['age']
         ]);
     }
