@@ -110,13 +110,7 @@ class FrontendController extends Controller
             $players_pivot = $tournament->users()->get();
             $players = array();
             $registered = false;
-        //    if(Cache::has('ratingList')) {
-                $rating_list = new RatingList();
-
-       //         Cache::put('ratingList', $rating_list, 24*60);
-     //       }
-//
-     //       $rating_list = Cache::get('ratingList');
+            $rating_list = new RatingList();
 
             foreach ($players_pivot as $player_pivot) {
                 if ($player_pivot->id == Auth::id()) {
@@ -129,12 +123,10 @@ class FrontendController extends Controller
                 if($player['player']->cfc_number > 0) {
                     $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
                     $player['player']->rating = $cfcInfo['rating'];
-                    $player['player']->cfc_expiry = $cfcInfo['expiry'];
+                    $player['player']->cfc_expiry_date = $cfcInfo['expiry'];
                 }
+                $player['player']->save();
                 $players[] = $player;
-
-                // Sort list by rating.
-
             }
 
             usort($players, function ($a, $b) {
