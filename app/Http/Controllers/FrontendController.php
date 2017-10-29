@@ -123,7 +123,7 @@ class FrontendController extends Controller
                 if($player['player']->cfc_number > 0) {
                     $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
                     $player['player']->rating = $cfcInfo['rating'];
-                    $player['player']->cfc_expiry_date = $cfcInfo['expiry'];
+                    $player['player']->cfc_expiry_date = $cfcInfo['expiry']->format('Y-m-d');
                 }
                 $player['player']->save();
                 $players[] = $player;
