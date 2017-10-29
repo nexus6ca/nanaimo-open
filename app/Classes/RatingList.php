@@ -37,25 +37,19 @@ class RatingList
      */
     public function __construct()
     {
-   //     if (!Cache::has('ratingList')) {
-            ini_set('memory_limit', '-1');
-            $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
-            $header = str_getcsv(array_shift($this->rows));
-                foreach ($this->rows as $key => $list) {
-                    $list = str_getcsv($list);
+        ini_set('memory_limit', '-1');
+        $this->rows = explode("\n", file_get_contents("http://chess.ca/sites/default/files/tdlist.txt"));
+        $header = str_getcsv(array_shift($this->rows));
+            foreach ($this->rows as $key => $list) {
+                $list = str_getcsv($list);
 
-                    if (count($list) != 12) {
-                        continue;
-                    } else {
-                        $this->ratingList[$key] = array_combine($header, $list);
-                    }
-
+                if (count($list) != 12) {
+                    continue;
+                } else {
+                    $this->ratingList[$key] = array_combine($header, $list);
                 }
 
-     //           Cache::put('ratingList', $this->ratingList, 60 * 24);
-       // } else {
-        //    $this->ratingList = Cache::get('ratingList');
-       // }
+            }
     }
 
     /**
@@ -66,14 +60,9 @@ class RatingList
     public function getRating($cfc_number)
     {
         if (isset($cfc_number)) {
-            ini_set('memory_limit', '-1');
-            if(!Cache::has($cfc_number)) {
-                foreach ($this->ratingList as $member) {
-                    $result = $member['Rating'];
-                    Cache::put($cfc_number, $result, 60 * 24);
-                }
-            } else {
-                $result = Cache::get($cfc_number);
+            foreach ($this->ratingList as $member) {
+                $result = $member['Rating'];
+                Cache::put($cfc_number, $result, 60 * 24);
             }
             return $result;
         }
@@ -90,16 +79,10 @@ class RatingList
     public function getExpiry($cfc_number)
     {
         if (isset($cfc_number)) {
-            ini_set('memory_limit', '-1');
-            if(!Cache::has($cfc_number)) {
-                foreach ($this->ratingList as $member) {
-                    if ($member['CFC#'] == $cfc_number) {
-                            $result = date_create_from_format('d/m/Y', $member['Expiry']);
-                            Cache::put($cfc_number, $result, 60 * 24);
-                    }
+            foreach ($this->ratingList as $member) {
+                if ($member['CFC#'] == $cfc_number) {
+                        $result = date_create_from_format('d/m/Y', $member['Expiry']);
                 }
-            } else {
-                $result = Cache::get($cfc_number);
             }
             return $result;
         }
@@ -116,17 +99,11 @@ class RatingList
     public function getRatingAndExpiry($cfc_number)
     {
         if (isset($cfc_number)) {
-            ini_set('memory_limit', '-1');
-            if(!Cache::has($cfc_number)) {
-                foreach ($this->ratingList as $member) {
-                    if ($member['CFC#'] == $cfc_number) {
-                        $result = array('rating' => $member['Rating'],
-                            'expiry' => date_create_from_format('d/m/Y', $member['Expiry']));
-                        Cache::put($cfc_number, $result, 60 * 24);
-                    }
+            foreach ($this->ratingList as $member) {
+                if ($member['CFC#'] == $cfc_number) {
+                    $result = array('rating' => $member['Rating'],
+                        'expiry' => date_create_from_format('d/m/Y', $member['Expiry']));
                 }
-            } else {
-                $result = Cache::get($cfc_number);
             }
 
             return $result;
