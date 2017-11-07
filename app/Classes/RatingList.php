@@ -59,15 +59,15 @@ class RatingList
      */
     public function getRating($cfc_number)
     {
+        $result = 0;
         if (isset($cfc_number)) {
             foreach ($this->ratingList as $member) {
-                $result = $member['Rating'];
-                Cache::put($cfc_number, $result, 60 * 24);
+                if($member['CFC#'] ==  $cfc_number)
+                    $result = $member['Rating'];
             }
-            return $result;
         }
         // Return 0 if we didn't find the membership number.
-        return 0;
+        return $result;
     }
 
     /**
@@ -98,6 +98,7 @@ class RatingList
      */
     public function getRatingAndExpiry($cfc_number)
     {
+        $result = array();
         if (isset($cfc_number)) {
             foreach ($this->ratingList as $member) {
                 if ($member['CFC#'] == $cfc_number) {
@@ -105,11 +106,9 @@ class RatingList
                         'expiry' => date_create_from_format('d/m/Y', $member['Expiry']));
                 }
             }
-
-            return $result;
         }
-        // Return 0 if we didn't find the membership number.
-        return 0;
+        // Return 0 if we didn't find the membership number
+        return $result;
     }
 
     /**

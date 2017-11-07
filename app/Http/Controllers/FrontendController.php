@@ -107,6 +107,7 @@ class FrontendController extends Controller
         try {
             $tournament = Tournament::find($tournament_id);
             // Pivot finds the player (which is really a user)
+
             $players_pivot = $tournament->users()->get();
             $players = array();
             $registered = false;
@@ -122,21 +123,22 @@ class FrontendController extends Controller
                 $player['registration_date'] = $player_pivot->pivot->created_at;
                 if($player['player']->cfc_number > 0) {
                     $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
-                    $player['player']->rating = $cfcInfo['rating'];
-                    $player['player']->cfc_expiry_date = $cfcInfo['expiry']->format('Y-m-d');
+                    if(!empty($cfcInfo)) {
+                        $player['player']->rating = $cfcInfo['rating'];
+                        $player['player']->cfc_expiry_date = $cfcInfo['expiry']->format('Y-m-d');
+                    }
                 }
                 $player['player']->save();
+
                 $players[] = $player;
             }
-
             usort($players, function ($a, $b) {
                 return $b['player']->rating - $a['player']->rating;
             });
-
-            return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered);
+            return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered)->with('player', $player);
 
         } catch (Exception $e) {
-            $errors = $e->getMessage();
+            $errors = $e->getLine();
 
             return view('/errors/error')->with('page', 'Tournament Registration Page')->with('messages', $errors);
         }
