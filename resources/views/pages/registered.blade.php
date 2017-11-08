@@ -1,5 +1,6 @@
 <?php
 $player = Auth::user();
+session()->put('url.intended', URL::current());
 ?>
 @extends('layouts.default')
 @section('content')
@@ -143,20 +144,20 @@ $player = Auth::user();
                                         <input type="checkbox" name="bye[]" value="5">Round 5 Sun. 2:30
                                     </label>
                                 </div>
-                                <div class="well well-sm col-md-4 text-info">Select the rounds you wish to request a bye.
+                                <div class="well well-sm col-md-4 text-info" style="clear: both">Select the rounds you wish to request a bye.
                                     1/2
                                     point
                                     byes area available in rounds 1-4 and 0 point bye in round 5.
                                 </div>
                                 <div class="col-md-6">
                                     <input type="hidden" name="paid" value="0">
-                                    <button type="submit" class="btn btn-primary">
-                                        Register for this tournament.
-                                    </button>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" style="clear: both;">
+                            <button type="submit" class="btn btn-primary">
+                                Register for this tournament.
+                            </button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                         @else
