@@ -152,13 +152,13 @@ session()->put('url.intended', URL::current());
                                 <div class="col-md-6">
                                     <input type="hidden" name="paid" value="0">
                                 </div>
+                                <div class="modal-footer" style="clear: both;">
+                                    <button type="submit" class="btn btn-primary">
+                                        Register for this tournament.
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
                             </form>
-                        </div>
-                        <div class="modal-footer" style="clear: both;">
-                            <button type="submit" class="btn btn-primary">
-                                Register for this tournament.
-                            </button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                         @else
                             @if(Auth::guest())
