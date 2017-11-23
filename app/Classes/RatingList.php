@@ -43,6 +43,8 @@ class RatingList
             foreach ($this->rows as $key => $list) {
                 $list = str_getcsv($list);
 
+                if(isset($list[4]) && $list[4]  == 'FO')
+                    unset($list[6]);
                 if (count($list) != 12) {
                     continue;
                 } else {
