@@ -68,11 +68,11 @@ session()->put('url.intended', URL::current());
                             </div>
                             @if(Auth::user()->age == 'Adult')
                                 <a class="btn btn-primary"
-                                   href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ? $tournament->early_ef : $tournament->full_ef)?>">Pay
+                                   href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end >= date("Y-m-d H:i:s") ? $tournament->early_ef : $tournament->full_ef)?>">Pay
                                     using PayPal</a>
                             @elseif(Auth::user()->age == 'Junior' || Auth::user()->age == 'VIU Student')
                                 <a class="btn btn-primary"
-                                   href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end > date("Y-m-d H:i:s") ?
+                                   href="https://www.paypal.me/nanaimoopen/<?=($tournament->early_reg_end >= date("Y-m-d H:i:s") ?
                                        $tournament->early_ef - $tournament->junior_discount : $tournament->full_ef - $tournament->junior_discount)?>">Pay
                                     using PayPal</a>
                             @endif
