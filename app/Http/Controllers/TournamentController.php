@@ -127,9 +127,9 @@ class TournamentController extends Controller
             $tournament->junior_discount = $formData['junior_discount'];
             $tournament->completed = $formData['completed'];
             $tournament->details = $formData['details'];
-            if(isset($formData['crosstable'])) $tournament->crosstable = $formData['crosstable'];
-            if(isset($formData['pairings'])) $tournament->pairings = $formData['pairings'];
-            if(isset($formData['report'])) $tournament->report = $formData['report'];
+            $tournament->crosstable = (isset($formData['crosstable']) ? $formData['crosstable'] : '');
+            $tournament->pairings = (isset($formData['pairings']) ? $formData['pairings'] : '');
+            $tournament->report = (isset($formData['report']) ? $formData['report'] : '');
 
             $tournament->save();
 
