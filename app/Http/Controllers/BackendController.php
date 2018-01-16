@@ -40,7 +40,7 @@ class BackendController extends Controller
                 throw new Exception('Not authorized.');
             }
 
-            $site = SitePage::find(1);
+            $site = SitePage::first();
             $pages = Page::all();
             $category = DB::table('page_categories')->get();
             $tournaments = Tournament::all();

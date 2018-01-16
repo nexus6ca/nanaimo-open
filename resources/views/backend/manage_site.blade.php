@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <div class="container">
+
     <div class="row" style="margin-top: 10px">
         <div class="col-md-12 col-md-offset-0">
             <div class="panel panel-default">
@@ -11,7 +12,7 @@
 
                         <div class="form-group-lg">
                             <label for title>Site Name</label>
-                            <input style="width: 100%" name="site_name" value="<?=$site->site_name?>">
+                            <input style="width: 100%" name="site_name" value="<?=isset($site->site_name) ? $site->site_name : '' ?>">
                         </div>
                         <div class="form-group-sm">
                             <label for title>Home Page</label>
