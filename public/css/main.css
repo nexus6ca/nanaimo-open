@@ -45,7 +45,7 @@ body {
 .tabs {
     width:100%;
     display:inline-block;
-    background: #f0f0f0;
+    background: #ffffff;
     padding-top: 5px;
 }
 
@@ -92,7 +92,7 @@ li.active a, li.active a:hover {
     padding:15px;
     border-radius:3px;
     padding-bottom: 2px;
-    background: #f0f0f0;
+    background: #ffffff;
 }
 
 .tab {
