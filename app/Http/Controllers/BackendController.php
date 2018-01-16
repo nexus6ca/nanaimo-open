@@ -60,7 +60,7 @@ class BackendController extends Controller
 
             $data = Input::all();
 
-            $site = (SitePage::count() > 0) ? SitePage::find(1) : new SitePage;
+            $site = (SitePage::count() > 0) ? SitePage::first() : new SitePage;
             $site->site_name = $data['site_name'];
             $site->home = $data['home_page'];
             $site->next_tournament = $data['next_tournament_page'];
