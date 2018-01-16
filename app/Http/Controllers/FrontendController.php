@@ -23,7 +23,7 @@ class FrontendController extends Controller
     public function home()
     {
         try {
-            $site = SitePage::find(1);
+            $site = SitePage::first();
         } catch (Exception $e) {
             $errors = $e->getMessage();
 
@@ -47,7 +47,7 @@ class FrontendController extends Controller
     public function next_tournament()
     {
         try {
-            $site = SitePage::find(1);
+            $site = SitePage::first();
         } catch (Exception $e) {
             $errors = $e->getMessage();
             return view('/errors/error')->with('page', 'Next Tournament Page')->with('messages', $errors);
@@ -154,7 +154,7 @@ class FrontendController extends Controller
 
     public function chessClub() {
         try {
-            $site = SitePage::find(1);
+            $site = SitePage::first();
         } catch (Exception $e) {
             $errors = $e->getMessage();
             return view('/errors/error')->with('page', 'Next Tournament Page')->with('messages', $errors);
