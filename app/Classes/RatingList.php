@@ -110,6 +110,7 @@ class RatingList
             }
         }
         // Return 0 if we didn't find the membership number
+
         return $result;
     }
 

@@ -111,35 +111,40 @@ class FrontendController extends Controller
             $players_pivot = $tournament->users()->get();
             $players = array();
             $registered = false;
-            $rating_list = new RatingList();
+            if($players_pivot->count() > 0) {
+                $rating_list = new RatingList();
 
-            foreach ($players_pivot as $player_pivot) {
-                if ($player_pivot->id == Auth::id()) {
-                    $registered = 'true';
-                }
-                $player['player'] = User::find($player_pivot->id);
-                $player['byes'] = $player_pivot->pivot->byes;
-                $player['paid'] = $player_pivot->pivot->paid;
-                $player['registration_date'] = $player_pivot->pivot->created_at;
-                if($player['player']->cfc_number > 0) {
-
-                    $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
-                    if(!empty($cfcInfo)) {
-                        $player['player']->rating = $cfcInfo['rating'];
-                        $player['player']->cfc_expiry_date = $cfcInfo['expiry']->format('Y-m-d');
+                foreach ($players_pivot as $player_pivot) {
+                    if ($player_pivot->id == Auth::id()) {
+                        $registered = 'true';
                     }
-                }
-                $player['player']->save();
+                    $player['player'] = User::find($player_pivot->id);
+                    $player['byes'] = $player_pivot->pivot->byes;
+                    $player['paid'] = $player_pivot->pivot->paid;
+                    $player['registration_date'] = $player_pivot->pivot->created_at;
+                    if ($player['player']->cfc_number > 0) {
 
-                $players[] = $player;
+                        $cfcInfo = $rating_list->getRatingAndExpiry($player['player']->cfc_number);
+                        if (!empty($cfcInfo)) {
+                            $player['player']->rating = $cfcInfo['rating'];
+                            $player['player']->cfc_expiry_date = $cfcInfo['expiry']->format('Y-m-d');
+                        }
+                    }
+                    $player['player']->save();
+
+                    $players[] = $player;
+                }
+                usort($players, function ($a, $b) {
+                    return $b['player']->rating - $a['player']->rating;
+                });
+            } else {
+                $players = null;
+                $player = null;
             }
-            usort($players, function ($a, $b) {
-                return $b['player']->rating - $a['player']->rating;
-            });
             return view('/pages/registered')->with('tournament', $tournament)->with('players', $players)->with('registered', $registered)->with('player', $player);
 
         } catch (Exception $e) {
-            $errors = $e->getLine();
+            $errors = $e->getMessage();
 
             return view('/errors/error')->with('page', 'Tournament Registration Page')->with('messages', $errors);
         }

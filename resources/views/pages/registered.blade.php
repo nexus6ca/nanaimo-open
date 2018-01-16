@@ -11,6 +11,7 @@ session()->put('url.intended', URL::current());
                     <div class="panel-heading">Registered Players for {!! $tournament->name !!} </div>
                     <div class="panel-body">
                         <div class="panel-group">
+                            <?php if(isset($players)) { ?>
                             @foreach ($players as $p)
                                 <div class="panel panel-<?=($p['player']->tournaments()->find($tournament->id)->pivot->paid == 0 ? 'danger' : 'default') ?>">
                                     <?php if (Auth::id() == $p['player']->id) $player = $p['player']; ?>
@@ -48,6 +49,7 @@ session()->put('url.intended', URL::current());
                                     </div>
                                 </div>
                             @endforeach
+                            <?php } ?>
                         </div>
                         @if (!$registered)
                                 <!-- Trigger the modal with a button -->
