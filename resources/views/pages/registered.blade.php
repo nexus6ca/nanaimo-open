@@ -53,9 +53,10 @@ session()->put('url.intended', URL::current());
                         </div>
                         @if (!$registered)
                                 <!-- Trigger the modal with a button -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#registration">Register for this tournament
-                                </button>
+                                {{--<button type="button" class="btn btn-primary" data-toggle="modal"--}}
+                                        {{--data-target="#registration">Register for this tournament--}}
+                                {{--</button>--}}
+                            <span>Email to see if registration will be accepted as we have reached our comfortable max players for the site.</span>
                         @endif
                         @if ($registered && !($player->tournaments()->find($tournament->id)->pivot->paid))
                             <div class="well well-sm col-sm-12">
@@ -156,7 +157,7 @@ session()->put('url.intended', URL::current());
                                 </div>
                                 <div class="modal-footer" style="clear: both;">
                                     <button type="submit" class="btn btn-primary">
-                                        Register for this tournament.
+                                       Email nanaimo-open@gmail.com to see if additonal players will be accept
                                     </button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
