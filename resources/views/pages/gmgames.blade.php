@@ -34,7 +34,7 @@
 
                             [Event "Nanaimo Spring Open 2018"]
                             [Site "?"]
-                            [Date "2018.03.13"]
+                            [Date "2018.03.03"]
                             [Round "3"]
                             [White "Blaha, Jiri"]
                             [Black "Hansen, Eric"]
@@ -53,10 +53,10 @@
                             Ng8 22. f5 Rxc3 23. Rcd1 gxf5 24. exf5 exf5 25. Nf3 f6 26. Bxg8 Kxg8 27. Qg3+
                             Kh8 28. Qxd6 Rf7 29. Rc1 Qa3 30. Qb8+ Bc8 31. Qf4 Rxc1 32. Rxc1 Be6 33. Nd4 Bd7
                             34. h3 Rg7 35. Qc7 h6 36. Rg1 Kh7 37. Qxb7 Qxd3 38. Qb6 f4 39. Qxf6 Qe4 40. Kh2
-                            a5 41. Nf3 Bc6 42. Nh4 a4 43. a3 Be8 44. Nf3 Bh5 45. Nh4 Rf7 46. Qd6 Qe3 47.
-                            Nf3 Qb3 48. Rf1 Qc2 49. Re1 Qb3 50. Rf1 Qc2 51. Kg1 Qc4 52. Rf2 Qe4 53. Rf1 Rg7
+                            a5 41. Nf3 Bc6 42. Nh4 a4 43. a3 Ba8 44. Nf3 Bd5 45. Nh4 Rf7 46. Qd6 Qd3 47.
+                            Nf3 Qb3 48. Rf1 Qa2 49. Re1 Qb3 50. Rf1 Qa2 51. Kg1 Qc4 52. Rf2 Qe4 53. Rf1 Rg7
                             54. Kh2 Qe2 55. Rg1 Bxf3 *
-
+                            
                             [Event "Nanaimo Spring Open 2018"]
                             [Site "?"]
                             [Date "2018.03.04"]
