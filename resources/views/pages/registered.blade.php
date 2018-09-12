@@ -156,7 +156,7 @@ session()->put('url.intended', URL::current());
                                 </div>
                                 <div class="modal-footer" style="clear: both;">
                                     <button type="submit" class="btn btn-primary">
-                                       Email nanaimo-open@gmail.com to see if additonal players will be accept
+                                       Register
                                     </button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
