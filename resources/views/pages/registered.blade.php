@@ -53,10 +53,9 @@ session()->put('url.intended', URL::current());
                         </div>
                         @if (!$registered)
                                 <!-- Trigger the modal with a button -->
-                                {{--<button type="button" class="btn btn-primary" data-toggle="modal"--}}
-                                        {{--data-target="#registration">Register for this tournament--}}
-                                {{--</button>--}}
-                            <span>Email to see if registration will be accepted as we have reached our comfortable max players for the site.</span>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#registration">Register for this tournament
+                                </button>
                         @endif
                         @if ($registered && !($player->tournaments()->find($tournament->id)->pivot->paid))
                             <div class="well well-sm col-sm-12">
